@@ -1,6 +1,6 @@
 USE [ProjectManagement]
 GO
-/****** Object:  Database [ProjectManagement]    Script Date: 7/5/2021 2:45:00 PM ******/
+/****** Object:  Database [ProjectManagement]    Script Date: 7/6/2021 2:40:01 PM ******/
 CREATE DATABASE [ProjectManagement]
  CONTAINMENT = NONE
  ON  PRIMARY 
@@ -73,7 +73,92 @@ ALTER DATABASE [ProjectManagement] SET DELAYED_DURABILITY = DISABLED
 GO
 USE [ProjectManagement]
 GO
-/****** Object:  Table [dbo].[User]    Script Date: 7/5/2021 2:45:00 PM ******/
+/****** Object:  Table [dbo].[Log]    Script Date: 7/6/2021 2:40:01 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Log](
+	[Id] [int] NOT NULL,
+	[UserId] [int] NOT NULL,
+	[TimeSpent] [decimal](4, 2) NOT NULL,
+	[Date] [datetime] NOT NULL,
+	[TaskId] [int] NOT NULL,
+ CONSTRAINT [PK_Log] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Project]    Script Date: 7/6/2021 2:40:01 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Project](
+	[Id] [int] NOT NULL,
+	[Name] [nvarchar](50) NOT NULL,
+	[Description] [nvarchar](50) NOT NULL,
+	[OwnerId] [int] NOT NULL,
+	[DateCreation] [datetime] NOT NULL,
+	[IdCreator] [int] NOT NULL,
+	[DateLastChange] [datetime] NOT NULL,
+	[IdLastChange] [int] NOT NULL,
+	[TaskId] [int] NOT NULL,
+ CONSTRAINT [PK_Project] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[ProjectsTeams]    Script Date: 7/6/2021 2:40:01 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[ProjectsTeams](
+	[ProjectId] [int] NOT NULL,
+	[TeamsId] [int] NOT NULL
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Task]    Script Date: 7/6/2021 2:40:01 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Task](
+	[Id] [int] NOT NULL,
+	[Title] [nvarchar](50) NOT NULL,
+	[Description] [nvarchar](50) NOT NULL,
+	[ProjectId] [int] NOT NULL,
+	[Status] [bit] NOT NULL,
+ CONSTRAINT [PK_Task] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Team]    Script Date: 7/6/2021 2:40:01 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Team](
+	[Id] [int] NOT NULL,
+	[TeamName] [nvarchar](50) NOT NULL,
+	[Members] [nvarchar](50) NOT NULL,
+	[ProjectId] [int] NOT NULL,
+	[DateCreation] [datetime] NOT NULL,
+	[IdCreator] [int] NOT NULL,
+	[DateLastChange] [datetime] NOT NULL,
+	[IdLastChange] [int] NOT NULL,
+ CONSTRAINT [PK_Team] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[User]    Script Date: 7/6/2021 2:40:01 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -88,11 +173,62 @@ CREATE TABLE [dbo].[User](
 	[IdOfCreator] [int] NOT NULL,
 	[DateLastChange] [datetime] NOT NULL,
 	[IdLastChange] [int] NOT NULL,
+	[IsAdmin] [bit] NOT NULL,
  CONSTRAINT [PK_User] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[UsersTeams]    Script Date: 7/6/2021 2:40:01 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[UsersTeams](
+	[UserId] [int] NOT NULL,
+	[TeamId] [int] NOT NULL
+) ON [PRIMARY]
+GO
+ALTER TABLE [dbo].[Log]  WITH CHECK ADD  CONSTRAINT [FK_Log_Task] FOREIGN KEY([TaskId])
+REFERENCES [dbo].[Task] ([Id])
+GO
+ALTER TABLE [dbo].[Log] CHECK CONSTRAINT [FK_Log_Task]
+GO
+ALTER TABLE [dbo].[Project]  WITH CHECK ADD  CONSTRAINT [FK_Project_Task] FOREIGN KEY([TaskId])
+REFERENCES [dbo].[Task] ([Id])
+GO
+ALTER TABLE [dbo].[Project] CHECK CONSTRAINT [FK_Project_Task]
+GO
+ALTER TABLE [dbo].[ProjectsTeams]  WITH CHECK ADD  CONSTRAINT [FK_ProjectsTeams_Project] FOREIGN KEY([ProjectId])
+REFERENCES [dbo].[Project] ([Id])
+GO
+ALTER TABLE [dbo].[ProjectsTeams] CHECK CONSTRAINT [FK_ProjectsTeams_Project]
+GO
+ALTER TABLE [dbo].[ProjectsTeams]  WITH CHECK ADD  CONSTRAINT [FK_ProjectsTeams_Team] FOREIGN KEY([TeamsId])
+REFERENCES [dbo].[Team] ([Id])
+GO
+ALTER TABLE [dbo].[ProjectsTeams] CHECK CONSTRAINT [FK_ProjectsTeams_Team]
+GO
+ALTER TABLE [dbo].[User]  WITH CHECK ADD  CONSTRAINT [FK_IdLastChange_Id] FOREIGN KEY([IdLastChange])
+REFERENCES [dbo].[User] ([Id])
+GO
+ALTER TABLE [dbo].[User] CHECK CONSTRAINT [FK_IdLastChange_Id]
+GO
+ALTER TABLE [dbo].[User]  WITH CHECK ADD  CONSTRAINT [FK_IdOfCreator_Id] FOREIGN KEY([IdOfCreator])
+REFERENCES [dbo].[User] ([Id])
+GO
+ALTER TABLE [dbo].[User] CHECK CONSTRAINT [FK_IdOfCreator_Id]
+GO
+ALTER TABLE [dbo].[UsersTeams]  WITH CHECK ADD  CONSTRAINT [FK_UsersTeams_Team] FOREIGN KEY([TeamId])
+REFERENCES [dbo].[Team] ([Id])
+GO
+ALTER TABLE [dbo].[UsersTeams] CHECK CONSTRAINT [FK_UsersTeams_Team]
+GO
+ALTER TABLE [dbo].[UsersTeams]  WITH CHECK ADD  CONSTRAINT [FK_UsersTeams_User] FOREIGN KEY([UserId])
+REFERENCES [dbo].[User] ([Id])
+GO
+ALTER TABLE [dbo].[UsersTeams] CHECK CONSTRAINT [FK_UsersTeams_User]
 GO
 USE [master]
 GO
