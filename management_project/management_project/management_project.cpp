@@ -6,9 +6,82 @@
 
 using namespace std;
 
+struct USER
+{
+	int id = 0;
+	string username = "";
+	string password = "";
+	string firstName = "";
+	string lastName = "";
+	nanodbc::timestamp dateOfCreation;
+	int idOfCreator = 0;
+	nanodbc::timestamp dateLastChange;
+	int idLastChange = 0;
+	bool isAdmin;
+};
+
+struct TEAM
+{
+	int id = 0;
+	string teamName = "";
+	int projectId = 0;
+	nanodbc::timestamp dateOfCreation;
+	int idOfCreator = 0;
+	nanodbc::timestamp dateLastChange;
+};
+
+
+struct PROJECT
+{
+	int id = 0;
+	string name = "";
+	string description = "";
+	int ownerId = 0;
+	int projectId = 0;
+	nanodbc::timestamp dateOfCreation;
+	int idOfCreator = 0;
+	nanodbc::timestamp dateLastChange;
+	int taskId = 0;
+};
+
+struct TASK
+{
+	int id = 0;
+	string title = "";
+	string description = "";
+	int projectId = 0;
+	bool status;
+};
+
+struct LOG
+{
+	int id = 0;
+	int userId = 0;
+	int timeSpent = 0;
+	nanodbc::timestamp date;
+	int taskId = 0;
+};
+
 int main()
 {
-    std::cout << "Hello World!\n";
+	try
+	{
+		nanodbc::string connstr = NANODBC_TEXT("DRIVER={ODBC Driver 17 for SQL Server};SERVER=(localdb)\\MSSQLLocalDB;DATABASE=ProjectManagement;Trusted_Connection=yes;"); // an ODBC connection string to your database
+
+		nanodbc::connection conn(connstr);
+
+		/*do
+		{
+			runProgram(conn);
+		} while (runProgram(conn));*/
+
+		return EXIT_SUCCESS;
+	}
+	catch (std::exception& e)
+	{
+		std::cerr << e.what() << std::endl;
+		return EXIT_FAILURE;
+	}
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
