@@ -62,6 +62,29 @@ struct LOG
 	int taskId = 0;
 };
 
+string enterText()
+{
+	cin.ignore(1, '\n');
+	string text;
+	getline(cin, text);
+
+	return text;
+}
+
+int enterInt()
+{
+	int num;
+	cin >> num;
+	return num;
+}
+
+double enterDouble()
+{
+	double num;
+	cin >> num;
+	return num;
+}
+
 int main()
 {
 	try
