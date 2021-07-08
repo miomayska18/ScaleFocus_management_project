@@ -13,11 +13,35 @@ struct USER
 	string password = "";
 	string firstName = "";
 	string lastName = "";
-	nanodbc::timestamp dateOfCreation;
+	string dateOfCreation = "";
 	int idOfCreator = 0;
-	nanodbc::timestamp dateLastChange;
+	string dateLastChange = "";
 	int idLastChange = 0;
-	bool isAdmin;
+	bool isAdmin = 0;
+
+	void displayUser()
+	{
+		cout << "User id: " << this->id << endl;
+		cout << "Username: " << this->username << endl;
+		cout << "Password: " << this->password << endl;
+		cout << "Firsrt name: " << this->firstName << endl;
+		cout << "Last name: " << this->lastName << endl;
+		//cout << "Date of creation of this user: " << this->dateOfCreation.day << "/" << this->dateOfCreation.month << this->dateOfCreation.year << endl;
+		cout << "Date of creation of this profile: " << this->dateOfCreation << endl;
+		cout << "Id of creator of this profile: " << this->idOfCreator << endl;
+		//cout << "Date of last modification of this profile: " << this->dateLastChange.day << "/" << this->dateLastChange.month << "/" << this->dateLastChange.year << endl;
+		cout << "Date of the last modification of this profile: " << this->dateLastChange << endl;
+		cout << "Id of the user that last modified this profile: " << this->idLastChange << endl;
+		cout << "Is this user an admin: ";
+		if (this->isAdmin)
+		{
+			cout << "yes" << endl;
+		}
+		else
+		{
+			cout << "no" << endl;
+		}
+	}
 };
 
 struct TEAM
@@ -25,9 +49,9 @@ struct TEAM
 	int id = 0;
 	string teamName = "";
 	int projectId = 0;
-	nanodbc::timestamp dateOfCreation;
+	nanodbc::date dateOfCreation;
 	int idOfCreator = 0;
-	nanodbc::timestamp dateLastChange;
+	nanodbc::date dateLastChange;
 };
 
 
@@ -38,9 +62,9 @@ struct PROJECT
 	string description = "";
 	int ownerId = 0;
 	int projectId = 0;
-	nanodbc::timestamp dateOfCreation;
+	nanodbc::date dateOfCreation;
 	int idOfCreator = 0;
-	nanodbc::timestamp dateLastChange;
+	nanodbc::date dateLastChange;
 	int taskId = 0;
 };
 
@@ -58,7 +82,7 @@ struct LOG
 	int id = 0;
 	int userId = 0;
 	int timeSpent = 0;
-	nanodbc::timestamp date;
+	nanodbc::date date;
 	int taskId = 0;
 };
 
@@ -85,6 +109,47 @@ double enterDouble()
 	return num;
 }
 
+vector<USER> getUsers(nanodbc::connection conn)
+{
+	vector<USER> users;
+	nanodbc::statement statement(conn);
+	nanodbc::prepare(statement, NANODBC_TEXT(R"( 
+        SELECT *
+            FROM [ProjectManagement].[dbo].[Users]
+    )"));
+
+	auto result = execute(statement);
+
+	while (result.next())
+	{
+		USER user;
+		user.id = result.get<int>("Id");
+		user.username = result.get<nanodbc::string>("UserName", "");
+		user.password = result.get<nanodbc::string>("Password", "");
+		user.firstName = result.get<nanodbc::string>("FirstName", "");
+		user.lastName = result.get<nanodbc::string>("LastName", "");
+		user.dateOfCreation = result.get<nanodbc::string>("DateOfCreation", "");
+		user.idOfCreator = result.get<int>("IdOfCreator");
+		user.dateLastChange = result.get<nanodbc::string>("DateLastChange", "");
+		user.idLastChange = result.get<int>("IdLastChange");
+		user.isAdmin = result.get<int>("IsAdmin");
+
+		users.push_back(user);
+	}
+
+	return users;
+}
+
+void getAllUsers(nanodbc::connection conn)
+{
+	vector<USER> users = getUsers(conn);
+
+	for (size_t i = 0; i < users.size(); i++)
+	{
+		users[i].displayUser();
+	}
+}
+
 int main()
 {
 	try
@@ -97,6 +162,8 @@ int main()
 		{
 			runProgram(conn);
 		} while (runProgram(conn));*/
+
+		getAllUsers(conn);
 
 		return EXIT_SUCCESS;
 	}
