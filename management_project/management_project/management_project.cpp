@@ -201,12 +201,13 @@ void editUserById(nanodbc::connection conn, const int& id)
 			Password = ?, 
 			FirstName = ?, 
 			LastName = ?, 
-			IdLastChange = ?
+			IdLastChange = ?,
+			DateLastChange = GETDATE()
 		WHERE	
 			Id = ?
     )"));
 
-	statement.bind(5, &id);
+	
 
 	cout << "Enter the new username: ";
 	const string username = enterText();
@@ -227,6 +228,10 @@ void editUserById(nanodbc::connection conn, const int& id)
 	cout << "Enter your id: ";
 	const int creatorId = enterInt();
 	statement.bind(4, &creatorId);
+	
+	statement.bind(5, &id);
+
+	execute(statement);
 }
 
 bool deleteUserById(nanodbc::connection conn, const int& id)
@@ -258,8 +263,9 @@ int main()
 			runProgram(conn);
 		} while (runProgram(conn));*/
 
-		insertUser(conn);
-		getAllUsers(conn);
+		//insertUser(conn);
+		//getAllUsers(conn);
+		editUserById(conn, 3);
 
 		return EXIT_SUCCESS;
 	}
