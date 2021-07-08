@@ -191,6 +191,44 @@ void insertUser(nanodbc::connection conn)
 	execute(statement);
 }
 
+void editUserById(nanodbc::connection conn, const int& id)
+{
+	nanodbc::statement statement(conn);
+	nanodbc::prepare(statement, NANODBC_TEXT(R"(
+        UPDATE [ProjectManagement].[dbo].[Users]
+        SET    
+            UserName = ?,
+			Password = ?, 
+			FirstName = ?, 
+			LastName = ?, 
+			IdLastChange = ?
+		WHERE	
+			Id = ?
+    )"));
+
+	statement.bind(5, &id);
+
+	cout << "Enter the new username: ";
+	const string username = enterText();
+	statement.bind(0, username.c_str());
+
+	cout << "Enter the new password: ";
+	const string password = enterText();
+	statement.bind(1, password.c_str());
+
+	cout << "Enter the user's new first name: ";
+	const string firstName = enterText();
+	statement.bind(2, firstName.c_str());
+
+	cout << "Enter the user's new last name: ";
+	const string lastName = enterText();
+	statement.bind(3, lastName.c_str());
+
+	cout << "Enter your id: ";
+	const int creatorId = enterInt();
+	statement.bind(4, &creatorId);
+}
+
 int main()
 {
 	try
@@ -204,7 +242,7 @@ int main()
 			runProgram(conn);
 		} while (runProgram(conn));*/
 
-		//insertUser(conn);
+		insertUser(conn);
 		getAllUsers(conn);
 
 		return EXIT_SUCCESS;
