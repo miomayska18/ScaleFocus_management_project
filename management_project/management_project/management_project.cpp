@@ -229,6 +229,22 @@ void editUserById(nanodbc::connection conn, const int& id)
 	statement.bind(4, &creatorId);
 }
 
+bool deleteUserById(nanodbc::connection conn, const int& id)
+{
+	nanodbc::statement statement(conn);
+	nanodbc::prepare(statement, NANODBC_TEXT(R"(
+        DELETE 
+            FROM [ProjectManagement].[dbo].[Users]
+            WHERE Id = ?
+    )"));
+
+	statement.bind(0, &id);
+
+	auto result = execute(statement);
+
+	return result.affected_rows() != 0;
+}
+
 int main()
 {
 	try
