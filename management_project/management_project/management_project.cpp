@@ -49,9 +49,9 @@ struct TEAM
 	int id = 0;
 	string teamName = "";
 	int projectId = 0;
-	nanodbc::date dateOfCreation;
+	string dateOfCreation = "";
 	int idOfCreator = 0;
-	nanodbc::date dateLastChange;
+	string dateLastChange = "";
 };
 
 
@@ -62,9 +62,9 @@ struct PROJECT
 	string description = "";
 	int ownerId = 0;
 	int projectId = 0;
-	nanodbc::date dateOfCreation;
+	string dateOfCreation = "";
 	int idOfCreator = 0;
-	nanodbc::date dateLastChange;
+	string dateLastChange = "";
 	int taskId = 0;
 };
 
@@ -82,7 +82,7 @@ struct LOG
 	int id = 0;
 	int userId = 0;
 	int timeSpent = 0;
-	nanodbc::date date;
+	string date = "";
 	int taskId = 0;
 };
 
