@@ -88,7 +88,7 @@ struct LOG
 
 string enterText()
 {
-	cin.ignore(1, '\n');
+	cin.ignore(0, '\n');
 	string text;
 	getline(cin, text);
 
@@ -147,7 +147,48 @@ void getAllUsers(nanodbc::connection conn)
 	for (size_t i = 0; i < users.size(); i++)
 	{
 		users[i].displayUser();
+		cout << endl;
 	}
+
+}
+
+void insertUser(nanodbc::connection conn)
+{
+	nanodbc::statement statement(conn);
+	nanodbc::prepare(statement, NANODBC_TEXT(R"(
+        INSERT INTO
+            [ProjectManagement].[dbo].[Users]
+            (UserName, Password, FirstName, LastName, IdOfCreator, IdLastChange, IsAdmin)
+            VALUES
+            (?, ?, ?, ?, ?, ?, ?)
+    )"));
+
+	cout << "Enter the username: ";
+	const string username = enterText();
+	statement.bind(0, username.c_str());
+
+	cout << "Enter the password: ";
+	const string password = enterText();
+	statement.bind(1, password.c_str());
+
+	cout << "Enter the user's first name: ";
+	const string firstName = enterText();
+	statement.bind(2, firstName.c_str());
+
+	cout << "Enter the user's last name: ";
+	const string lastName = enterText();
+	statement.bind(3, lastName.c_str());
+
+	cout << "Enter your id: ";
+	const int creatorId = enterInt();
+	statement.bind(4, &creatorId);
+	statement.bind(5, &creatorId);
+
+	cout << "Enter 1 if the user is an admin or 0 is they are not: ";
+	const int isAdmin = enterInt();
+	statement.bind(6, &isAdmin);
+
+	execute(statement);
 }
 
 int main()
@@ -163,6 +204,7 @@ int main()
 			runProgram(conn);
 		} while (runProgram(conn));*/
 
+		//insertUser(conn);
 		getAllUsers(conn);
 
 		return EXIT_SUCCESS;
