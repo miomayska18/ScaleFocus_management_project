@@ -142,6 +142,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="DisplayMethods.cpp" />
     <ClCompile Include="management_project.cpp" />
   </ItemGroup>
   <ItemGroup>

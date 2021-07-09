@@ -3,13 +3,13 @@
 struct USER
 {
 	int id = 0;
-	string username = "";
-	string password = "";
-	string firstName = "";
-	string lastName = "";
-	string dateOfCreation = "";
+	std::string username = "";
+	std::string password = "";
+	std::string firstName = "";
+	std::string lastName = "";
+	std::string dateOfCreation = "";
 	int idOfCreator = 0;
-	string dateLastChange = "";
+	std::string dateLastChange = "";
 	int idLastChange = 0;
 	bool isAdmin = 0;
 
@@ -19,11 +19,11 @@ struct USER
 struct TEAM
 {
 	int id = 0;
-	string teamName = "";
+	std::string teamName = "";
 	int projectId = 0;
-	string dateOfCreation = "";
+	std::string dateOfCreation = "";
 	int idOfCreator = 0;
-	string dateLastChange = "";
+	std::string dateLastChange = "";
 
 	void displayTeam();
 };
@@ -31,12 +31,12 @@ struct TEAM
 struct PROJECT
 {
 	int id = 0;
-	string name = "";
-	string description = "";
+	std::string name = "";
+	std::string description = "";
 	int ownerId = 0;
-	string dateOfCreation = "";
+	std::string dateOfCreation = "";
 	int idOfCreator = 0;
-	string dateLastChange = "";
+	std::string dateLastChange = "";
 
 	void displayProject();
 };
@@ -44,8 +44,8 @@ struct PROJECT
 struct TASK
 {
 	int id = 0;
-	string title = "";
-	string description = "";
+	std::string title = "";
+	std::string description = "";
 	int projectId = 0;
 	bool status = false;
 
@@ -57,7 +57,7 @@ struct LOG
 	int id = 0;
 	int userId = 0;
 	int timeSpent = 0;
-	string date = "";
+	std::string date = "";
 	int taskId = 0;
 
 	void displayLog();
