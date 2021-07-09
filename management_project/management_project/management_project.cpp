@@ -7,21 +7,6 @@
 
 using namespace std;
 
-struct USER
-{
-	int id = 0;
-	string username = "";
-	string password = "";
-	string firstName = "";
-	string lastName = "";
-	string dateOfCreation = "";
-	int idOfCreator = 0;
-	string dateLastChange = "";
-	int idLastChange = 0;
-	bool isAdmin = 0;
-
-	void displayUser();
-};
 void USER::displayUser()
 {
 	cout << "User id: " << this->id << endl;
@@ -44,17 +29,6 @@ void USER::displayUser()
 	}
 }
 
-struct TEAM
-{
-	int id = 0;
-	string teamName = "";
-	int projectId = 0;
-	string dateOfCreation = "";
-	int idOfCreator = 0;
-	string dateLastChange = "";
-
-	void displayTeam();
-};
 void TEAM::displayTeam()
 {
 	cout << "Team id: " << this->id << endl;
@@ -66,18 +40,7 @@ void TEAM::displayTeam()
 }
 
 
-struct PROJECT
-{
-	int id = 0;
-	string name = "";
-	string description = "";
-	int ownerId = 0;
-	string dateOfCreation = "";
-	int idOfCreator = 0;
-	string dateLastChange = "";
 
-	void displayProject();
-};
 void PROJECT::displayProject()
 {
 	cout << "Project id: " << this->id << endl;
@@ -89,16 +52,7 @@ void PROJECT::displayProject()
 	cout << "Date of last modification: " << this->dateLastChange << endl;
 }
 
-struct TASK
-{
-	int id = 0;
-	string title = "";
-	string description = "";
-	int projectId = 0;
-	bool status = false;
 
-	void displayTask();
-};
 void TASK::displayTask()
 {
 	cout << "Task id: " << this->id << endl;
@@ -117,16 +71,6 @@ void TASK::displayTask()
 }
 
 
-struct LOG
-{
-	int id = 0;
-	int userId = 0;
-	int timeSpent = 0;
-	string date = "";
-	int taskId = 0;
-
-	void displayLog();
-};
 void LOG::displayLog()
 {
 	cout << "Log id: " << endl;
