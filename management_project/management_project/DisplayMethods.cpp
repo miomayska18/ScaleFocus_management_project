@@ -62,6 +62,11 @@ void TASK::displayTask()
 	{
 		cout << "pending" << endl;
 	}*/
+	cout << endl;
+	cout << "Date of creation: " << this->dateOfCreation << endl;
+	cout << "Id of creator: " << this->idOfCreator << endl;
+	cout << "Date of last modification: " << this->dateLastChange << endl;
+	cout << "Id of last modification: " << this->idLastChange << endl;
 }
 
 void LOG::displayLog()

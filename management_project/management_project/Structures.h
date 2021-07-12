@@ -50,6 +50,10 @@ struct TASK
 	std::string description = "";
 	int projectId = 0;
 	std::string status = "";
+	std::string dateOfCreation = "";
+	int idOfCreator = 0;
+	std::string dateLastChange = "";
+	int idLastChange = 0;
 
 	void displayTask();
 };

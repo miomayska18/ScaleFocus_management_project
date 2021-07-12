@@ -6,10 +6,6 @@
 #include "InsertFunctions.h"
 using namespace std;
 
-string enterText();
-int enterInt();
-
-
 vector<TEAM> getTeams(nanodbc::connection conn)
 {
 	vector<TEAM> teams;

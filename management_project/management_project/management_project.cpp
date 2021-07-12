@@ -11,6 +11,47 @@
 
 using namespace std;
 
+vector<TASK> getTasks(nanodbc::connection conn)
+{
+	vector<TASK> tasks;
+	nanodbc::statement statement(conn);
+	nanodbc::prepare(statement, NANODBC_TEXT(R"( 
+        SELECT *
+            FROM [ProjectManagement].[dbo].[Tasks]
+    )"));
+
+	auto result = execute(statement);
+
+	while (result.next())
+	{
+		TASK task;
+		task.id = result.get<int>("Id");
+		task.title = result.get<nanodbc::string>("Title", "");
+		task.description = result.get<nanodbc::string>("Description", "");
+		task.projectId = result.get<int>("ProjectId");
+		task.status = result.get<nanodbc::string>("Status", "");
+		task.dateOfCreation = result.get<nanodbc::string>("DateCreation", "");
+		task.idOfCreator = result.get<int>("IdCreator");
+		task.dateLastChange = result.get<nanodbc::string>("DateLastChange", "");
+		task.idLastChange = result.get<int>("IdLastChange");
+
+		tasks.push_back(task);
+	}
+
+	return tasks;
+}
+
+void getAllTasks(nanodbc::connection conn)
+{
+	vector<TASK> tasks = getTasks(conn);
+
+	for (size_t i = 0; i < tasks.size(); i++)
+	{
+		tasks[i].displayTask();
+		cout << endl;
+	}
+
+}
 
 int main()
 {
@@ -33,9 +74,11 @@ int main()
 		//getAllTeams(conn);
 		//editTeamById(conn, 1);
 
-		getAllProjects(conn);
+		//getAllProjects(conn);
 		//insertProject(conn);
 		//editProjectById(conn, 2);
+
+		getAllTasks(conn);
 
 		return EXIT_SUCCESS;
 	}
