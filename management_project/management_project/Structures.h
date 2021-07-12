@@ -49,7 +49,7 @@ struct TASK
 	std::string title = "";
 	std::string description = "";
 	int projectId = 0;
-	string status = "";
+	std::string status = "";
 
 	void displayTask();
 };
