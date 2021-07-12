@@ -112,6 +112,22 @@ void editTeamById(nanodbc::connection conn, const int& id)
 	execute(statement);
 }
 
+bool deleteTeamById(nanodbc::connection conn, const int& id)
+{
+	nanodbc::statement statement(conn);
+	nanodbc::prepare(statement, NANODBC_TEXT(R"(
+        DELETE 
+            FROM [ProjectManagement].[dbo].[Teams]
+            WHERE Id = ?
+    )"));
+
+	statement.bind(0, &id);
+
+	auto result = execute(statement);
+
+	return result.affected_rows() != 0;
+}
+
 int main()
 {
 	try
