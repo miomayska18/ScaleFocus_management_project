@@ -22,6 +22,47 @@ void insertTeam(nanodbc::connection conn);
 void editTeamById(nanodbc::connection conn, const int& id);
 bool deleteTeamById(nanodbc::connection conn, const int& id);
 
+vector<PROJECT> getProjects(nanodbc::connection conn)
+{
+	vector<PROJECT> projects;
+	nanodbc::statement statement(conn);
+	nanodbc::prepare(statement, NANODBC_TEXT(R"( 
+        SELECT *
+            FROM [ProjectManagement].[dbo].[Projects]
+    )"));
+
+	auto result = execute(statement);
+
+	while (result.next())
+	{
+		PROJECT project;
+		project.id = result.get<int>("Id");
+		project.name = result.get<nanodbc::string>("Name", "");
+		project.description = result.get<nanodbc::string>("Description", "");
+		project.ownerId = result.get<int>("OwnerId");
+		project.dateOfCreation = result.get<nanodbc::string>("DateCreation", "");
+		project.idOfCreator = result.get<int>("IdCreator");
+		project.dateLastChange = result.get<nanodbc::string>("DateLastChange", "");
+		project.idLastChange = result.get<int>("IdLastChange");
+
+		projects.push_back(project);
+	}
+
+	return projects;
+}
+
+void getAllProjects(nanodbc::connection conn)
+{
+	vector<PROJECT> projects = getProjects(conn);
+
+	for (size_t i = 0; i < projects.size(); i++)
+	{
+		projects[i].displayProject();
+		cout << endl;
+	}
+
+}
+
 int main()
 {
 	try
@@ -42,6 +83,8 @@ int main()
 		//insertTeam(conn);
 		//getAllTeams(conn);
 		//editTeamById(conn, 1);
+
+		getAllProjects(conn);
 
 		return EXIT_SUCCESS;
 	}
