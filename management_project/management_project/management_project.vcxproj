@@ -145,6 +145,7 @@
     <ClCompile Include="DisplayMethods.cpp" />
     <ClCompile Include="InsertFunctions.cpp" />
     <ClCompile Include="management_project.cpp" />
+    <ClCompile Include="TeamsCRUD.cpp" />
     <ClCompile Include="UserCRUD.cpp" />
   </ItemGroup>
   <ItemGroup>

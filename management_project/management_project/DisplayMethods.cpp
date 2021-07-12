@@ -27,12 +27,12 @@ void USER::displayUser()
 void TEAM::displayTeam()
 {
 	cout << "Team id: " << this->id << endl;
-	cout << "Team name " << this->teamName << endl;
+	cout << "Team name: " << this->teamName << endl;
 	cout << "Assigned project id: " << this->projectId << endl;
 	cout << "Date of creation: " << this->dateOfCreation << endl;
 	cout << "Id of creator: " << this->idOfCreator << endl;
 	cout << "Date of last modification: " << this->dateLastChange << endl;
-	cout << "Id of last modification: " << this->id<< endl;
+	cout << "Id of last modificator: " << this->id<< endl;
 }
 
 void PROJECT::displayProject()
