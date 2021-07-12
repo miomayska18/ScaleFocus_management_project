@@ -5,18 +5,13 @@
 #include <vector>
 #include "Structures.h"
 #include "UserCRUD.h"
+#include "TeamsCRUD.h"
 
 using namespace std;
 
 string enterText();
 int enterInt();
 
-
-vector<TEAM> getTeams(nanodbc::connection conn);
-void getAllTeams(nanodbc::connection conn);
-void insertTeam(nanodbc::connection conn);
-void editTeamById(nanodbc::connection conn, const int& id);
-bool deleteTeamById(nanodbc::connection conn, const int& id);
 
 vector<PROJECT> getProjects(nanodbc::connection conn)
 {
@@ -73,11 +68,11 @@ int main()
 		} while (runProgram(conn));*/
 
 		//insertUser(conn);
-		getAllUsers(conn);
+		//getAllUsers(conn);
 		//editUserById(conn, 3);
 
 		//insertTeam(conn);
-		//getAllTeams(conn);
+		getAllTeams(conn);
 		//editTeamById(conn, 1);
 
 		//getAllProjects(conn);
