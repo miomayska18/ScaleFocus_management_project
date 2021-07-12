@@ -145,11 +145,13 @@
     <ClCompile Include="DisplayMethods.cpp" />
     <ClCompile Include="InsertFunctions.cpp" />
     <ClCompile Include="management_project.cpp" />
+    <ClCompile Include="ProjectsCRUD.cpp" />
     <ClCompile Include="TeamsCRUD.cpp" />
     <ClCompile Include="UserCRUD.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="InsertFunctions.h" />
+    <ClInclude Include="ProjectsCRUD.h" />
     <ClInclude Include="Structures.h" />
     <ClInclude Include="TeamsCRUD.h" />
     <ClInclude Include="UserCRUD.h" />

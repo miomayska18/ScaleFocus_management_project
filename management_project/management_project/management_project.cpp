@@ -7,80 +7,9 @@
 #include "UserCRUD.h"
 #include "TeamsCRUD.h"
 #include "InsertFunctions.h"
+#include "ProjectsCRUD.h"
 
 using namespace std;
-
-
-
-vector<PROJECT> getProjects(nanodbc::connection conn)
-{
-	vector<PROJECT> projects;
-	nanodbc::statement statement(conn);
-	nanodbc::prepare(statement, NANODBC_TEXT(R"( 
-        SELECT *
-            FROM [ProjectManagement].[dbo].[Projects]
-    )"));
-
-	auto result = execute(statement);
-
-	while (result.next())
-	{
-		PROJECT project;
-		project.id = result.get<int>("Id");
-		project.name = result.get<nanodbc::string>("Name", "");
-		project.description = result.get<nanodbc::string>("Description", "");
-		project.ownerId = result.get<int>("OwnerId");
-		project.dateOfCreation = result.get<nanodbc::string>("DateCreation", "");
-		project.idOfCreator = result.get<int>("IdCreator");
-		project.dateLastChange = result.get<nanodbc::string>("DateLastChange", "");
-		project.idLastChange = result.get<int>("IdLastChange");
-
-		projects.push_back(project);
-	}
-
-	return projects;
-}
-
-void getAllProjects(nanodbc::connection conn)
-{
-	vector<PROJECT> projects = getProjects(conn);
-
-	for (size_t i = 0; i < projects.size(); i++)
-	{
-		projects[i].displayProject();
-		cout << endl;
-	}
-
-}
-
-void insertProject(nanodbc::connection conn)
-{
-	nanodbc::statement statement(conn);
-	nanodbc::prepare(statement, NANODBC_TEXT(R"(
-        INSERT INTO
-            [ProjectManagement].[dbo].[Projects]
-            (Name, Description, OwnerId, DateCreation, IdCreator, DateLastChange, IdLastChange)
-            VALUES
-            (?, ?, ?, GETDATE(), ?, GETDATE(), ?)
-    )"));
-
-	cout << "Enter the Project's name: ";
-	const string projectName = enterText();
-	statement.bind(0, projectName.c_str());
-
-	cout << "Enter the project's description" << endl;
-	cout << "Please press Enter only when you are done writing: ";
-	const string description = enterText();
-	statement.bind(1, description.c_str());
-
-	cout << "Enter your id: ";
-	const int creatorId = enterInt();
-	statement.bind(2, &creatorId);
-	statement.bind(3, &creatorId);
-	statement.bind(4, &creatorId);
-
-	execute(statement);
-}
 
 
 int main()
@@ -104,8 +33,9 @@ int main()
 		//getAllTeams(conn);
 		//editTeamById(conn, 1);
 
-		//getAllProjects(conn);
+		getAllProjects(conn);
 		//insertProject(conn);
+		//editProjectById(conn, 2);
 
 		return EXIT_SUCCESS;
 	}

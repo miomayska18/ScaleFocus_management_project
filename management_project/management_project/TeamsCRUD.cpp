@@ -93,8 +93,8 @@ void editTeamById(nanodbc::connection conn, const int& id)
 
 
 	cout << "Enter the team's new name: ";
-	const string title = enterText();
-	statement.bind(0, title.c_str());
+	const string name = enterText();
+	statement.bind(0, name.c_str());
 
 	cout << "Enter your id: ";
 	const int modifierId = enterInt();
