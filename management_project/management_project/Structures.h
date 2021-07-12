@@ -24,6 +24,7 @@ struct TEAM
 	std::string dateOfCreation = "";
 	int idOfCreator = 0;
 	std::string dateLastChange = "";
+	int idLastChange = 0;
 
 	void displayTeam();
 };
@@ -37,6 +38,7 @@ struct PROJECT
 	std::string dateOfCreation = "";
 	int idOfCreator = 0;
 	std::string dateLastChange = "";
+	int idLastChange = 0;
 
 	void displayProject();
 };
@@ -47,7 +49,7 @@ struct TASK
 	std::string title = "";
 	std::string description = "";
 	int projectId = 0;
-	bool status = false;
+	string status = "";
 
 	void displayTask();
 };

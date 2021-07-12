@@ -32,6 +32,7 @@ void TEAM::displayTeam()
 	cout << "Date of creation: " << this->dateOfCreation << endl;
 	cout << "Id of creator: " << this->idOfCreator << endl;
 	cout << "Date of last modification: " << this->dateLastChange << endl;
+	cout << "Id of last modification: " << this->id<< endl;
 }
 
 void PROJECT::displayProject()
@@ -43,6 +44,7 @@ void PROJECT::displayProject()
 	cout << "Date of creation: " << this->dateOfCreation << endl;
 	cout << "Id of creator: " << this->idOfCreator << endl;
 	cout << "Date of last modification: " << this->dateLastChange << endl;
+	cout << "Id of last modification: " << this->idLastChange << endl;
 }
 
 void TASK::displayTask()
@@ -52,14 +54,14 @@ void TASK::displayTask()
 	cout << "Description: " << this->description << endl;
 	cout << "Project id: " << this->projectId << endl;
 	cout << "Task status: ";
-	if (this->status)
+	/*if (this->status)
 	{
 		cout << "complete" << endl;
 	}
 	else
 	{
 		cout << "pending" << endl;
-	}
+	}*/
 }
 
 void LOG::displayLog()
