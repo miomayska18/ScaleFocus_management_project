@@ -4,17 +4,13 @@
 #include <exception>
 #include <vector>
 #include "Structures.h"
+#include "UserCRUD.h"
 
 using namespace std;
 
 string enterText();
 int enterInt();
 
-vector<USER> getUsers(nanodbc::connection conn);
-void getAllUsers(nanodbc::connection conn);
-void insertUser(nanodbc::connection conn);
-void editUserById(nanodbc::connection conn, const int& id);
-bool deleteUserById(nanodbc::connection conn, const int& id);
 
 vector<TEAM> getTeams(nanodbc::connection conn);
 void getAllTeams(nanodbc::connection conn);
@@ -77,14 +73,14 @@ int main()
 		} while (runProgram(conn));*/
 
 		//insertUser(conn);
-		//getAllUsers(conn);
+		getAllUsers(conn);
 		//editUserById(conn, 3);
 
 		//insertTeam(conn);
 		//getAllTeams(conn);
 		//editTeamById(conn, 1);
 
-		getAllProjects(conn);
+		//getAllProjects(conn);
 
 		return EXIT_SUCCESS;
 	}
