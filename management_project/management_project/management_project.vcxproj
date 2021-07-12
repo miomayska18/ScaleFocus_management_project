@@ -143,7 +143,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="DisplayMethods.cpp" />
+    <ClCompile Include="InsertFunctions.cpp" />
     <ClCompile Include="management_project.cpp" />
+    <ClCompile Include="UserCRUD.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Structures.h" />
