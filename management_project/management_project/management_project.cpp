@@ -84,6 +84,34 @@ void insertTeam(nanodbc::connection conn)
 	execute(statement);
 }
 
+void editTeamById(nanodbc::connection conn, const int& id)
+{
+	nanodbc::statement statement(conn);
+	nanodbc::prepare(statement, NANODBC_TEXT(R"(
+        UPDATE [ProjectManagement].[dbo].[Teams]
+        SET    
+            Title = ?, 
+			IdLastChange = ?,
+			DateLastChange = GETDATE()
+		WHERE	
+			Id = ?
+    )"));
+
+
+
+	cout << "Enter the title: ";
+	const string title = enterText();
+	statement.bind(0, title.c_str());
+
+	cout << "Enter your id: ";
+	const int modifierId = enterInt();
+	statement.bind(1, &modifierId);
+
+	statement.bind(3, &id);
+
+	execute(statement);
+}
+
 int main()
 {
 	try
