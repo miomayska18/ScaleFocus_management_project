@@ -7,6 +7,9 @@
 
 using namespace std;
 
+string enterText();
+int enterInt();
+
 vector<USER> getUsers(nanodbc::connection conn);
 void getAllUsers(nanodbc::connection conn);
 void insertUser(nanodbc::connection conn);
@@ -42,7 +45,6 @@ vector<TEAM> getTeams(nanodbc::connection conn)
 	return teams;
 }
 
-
 void getAllTeams(nanodbc::connection conn)
 {
 	vector<TEAM> teams = getTeams(conn);
@@ -53,6 +55,33 @@ void getAllTeams(nanodbc::connection conn)
 		cout << endl;
 	}
 
+}
+
+void insertTeam(nanodbc::connection conn)
+{
+	nanodbc::statement statement(conn);
+	nanodbc::prepare(statement, NANODBC_TEXT(R"(
+        INSERT INTO
+            [ProjectManagement].[dbo].[Teams]
+            (TeamName, ProjectId, DateCreation, IdCreator, DateLastChange, IdLastChange)
+            VALUES
+            (?, ?, GETDATE(), ?, GETDATE(), ?)
+    )"));
+
+	cout << "Enter the team's name: ";
+	const string teamName = enterText();
+	statement.bind(0, teamName.c_str());
+
+	cout << "Enter the assigned project id: ";
+	const int projectId = enterInt();
+	statement.bind(1, &projectId);
+
+	cout << "Enter your id: ";
+	const int creatorId = enterInt();
+	statement.bind(3, &creatorId);
+	statement.bind(5, &creatorId);
+
+	execute(statement);
 }
 
 int main()
