@@ -3,10 +3,8 @@
 #include <nanodbc.h>
 #include <vector>
 #include <string>
+#include "InsertFunctions.h"
 using namespace std;
-
-string enterText();
-int enterInt();
 
 vector<USER> getUsers(nanodbc::connection conn)
 {

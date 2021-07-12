@@ -41,5 +41,8 @@
     <ClInclude Include="TeamsCRUD.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="InsertFunctions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

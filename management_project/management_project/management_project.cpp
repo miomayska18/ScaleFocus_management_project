@@ -6,11 +6,10 @@
 #include "Structures.h"
 #include "UserCRUD.h"
 #include "TeamsCRUD.h"
+#include "InsertFunctions.h"
 
 using namespace std;
 
-string enterText();
-int enterInt();
 
 
 vector<PROJECT> getProjects(nanodbc::connection conn)
