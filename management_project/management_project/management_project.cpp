@@ -53,6 +53,36 @@ void getAllProjects(nanodbc::connection conn)
 
 }
 
+void insertProject(nanodbc::connection conn)
+{
+	nanodbc::statement statement(conn);
+	nanodbc::prepare(statement, NANODBC_TEXT(R"(
+        INSERT INTO
+            [ProjectManagement].[dbo].[Projects]
+            (Name, Description, OwnerId, DateCreation, IdCreator, DateLastChange, IdLastChange)
+            VALUES
+            (?, ?, ?, GETDATE(), ?, GETDATE(), ?)
+    )"));
+
+	cout << "Enter the Project's name: ";
+	const string projectName = enterText();
+	statement.bind(0, projectName.c_str());
+
+	cout << "Enter the project's description" << endl;
+	cout << "Please press Enter only when you are done writing: ";
+	const string description = enterText();
+	statement.bind(1, description.c_str());
+
+	cout << "Enter your id: ";
+	const int creatorId = enterInt();
+	statement.bind(2, &creatorId);
+	statement.bind(3, &creatorId);
+	statement.bind(4, &creatorId);
+
+	execute(statement);
+}
+
+
 int main()
 {
 	try
@@ -71,10 +101,11 @@ int main()
 		//editUserById(conn, 3);
 
 		//insertTeam(conn);
-		getAllTeams(conn);
+		//getAllTeams(conn);
 		//editTeamById(conn, 1);
 
 		//getAllProjects(conn);
+		//insertProject(conn);
 
 		return EXIT_SUCCESS;
 	}
