@@ -1,6 +1,6 @@
 USE [ProjectManagement]
 GO
-/****** Object:  Database [ProjectManagement]    Script Date: 7/9/2021 12:41:38 PM ******/
+/****** Object:  Database [ProjectManagement]    Script Date: 7/13/2021 3:40:46 PM ******/
 CREATE DATABASE [ProjectManagement]
  CONTAINMENT = NONE
  ON  PRIMARY 
@@ -73,7 +73,7 @@ ALTER DATABASE [ProjectManagement] SET DELAYED_DURABILITY = DISABLED
 GO
 USE [ProjectManagement]
 GO
-/****** Object:  Table [dbo].[Logs]    Script Date: 7/9/2021 12:41:38 PM ******/
+/****** Object:  Table [dbo].[Logs]    Script Date: 7/13/2021 3:40:46 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -82,7 +82,7 @@ CREATE TABLE [dbo].[Logs](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
 	[UserId] [int] NOT NULL,
 	[TimeSpent] [int] NOT NULL,
-	[Date] [datetime] NOT NULL,
+	[Date] [date] NOT NULL,
 	[TaskId] [int] NOT NULL,
  CONSTRAINT [PK_Log] PRIMARY KEY CLUSTERED 
 (
@@ -90,7 +90,7 @@ CREATE TABLE [dbo].[Logs](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Projects]    Script Date: 7/9/2021 12:41:38 PM ******/
+/****** Object:  Table [dbo].[Projects]    Script Date: 7/13/2021 3:40:46 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -98,7 +98,7 @@ GO
 CREATE TABLE [dbo].[Projects](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
 	[Name] [nvarchar](50) NOT NULL,
-	[Description] [nvarchar](50) NOT NULL,
+	[Description] [nvarchar](150) NOT NULL,
 	[OwnerId] [int] NOT NULL,
 	[DateCreation] [datetime] NOT NULL,
 	[IdCreator] [int] NOT NULL,
@@ -110,7 +110,7 @@ CREATE TABLE [dbo].[Projects](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[ProjectsTeams]    Script Date: 7/9/2021 12:41:38 PM ******/
+/****** Object:  Table [dbo].[ProjectsTeams]    Script Date: 7/13/2021 3:40:46 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -125,7 +125,7 @@ CREATE TABLE [dbo].[ProjectsTeams](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Tasks]    Script Date: 7/9/2021 12:41:38 PM ******/
+/****** Object:  Table [dbo].[Tasks]    Script Date: 7/13/2021 3:40:46 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -133,16 +133,21 @@ GO
 CREATE TABLE [dbo].[Tasks](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
 	[Title] [nvarchar](50) NOT NULL,
-	[Description] [nvarchar](50) NOT NULL,
+	[Description] [nvarchar](150) NOT NULL,
 	[ProjectId] [int] NOT NULL,
-	[Status] [bit] NOT NULL,
+	[AssigneeId] [int] NOT NULL,
+	[Status] [nvarchar](50) NOT NULL,
+	[DateCreation] [datetime] NOT NULL,
+	[IdCreator] [int] NOT NULL,
+	[DateLastChange] [datetime] NOT NULL,
+	[IdLastChange] [int] NOT NULL,
  CONSTRAINT [PK_Task] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Teams]    Script Date: 7/9/2021 12:41:38 PM ******/
+/****** Object:  Table [dbo].[Teams]    Script Date: 7/13/2021 3:40:46 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -161,7 +166,7 @@ CREATE TABLE [dbo].[Teams](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Users]    Script Date: 7/9/2021 12:41:38 PM ******/
+/****** Object:  Table [dbo].[Users]    Script Date: 7/13/2021 3:40:46 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -183,7 +188,7 @@ CREATE TABLE [dbo].[Users](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[UsersTeams]    Script Date: 7/9/2021 12:41:38 PM ******/
+/****** Object:  Table [dbo].[UsersTeams]    Script Date: 7/13/2021 3:40:46 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -198,6 +203,38 @@ CREATE TABLE [dbo].[UsersTeams](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
+SET IDENTITY_INSERT [dbo].[Logs] ON 
+GO
+INSERT [dbo].[Logs] ([Id], [UserId], [TimeSpent], [Date], [TaskId]) VALUES (1, 2, 3, CAST(N'2021-07-11' AS Date), 2)
+GO
+INSERT [dbo].[Logs] ([Id], [UserId], [TimeSpent], [Date], [TaskId]) VALUES (2, 2, 2, CAST(N'2021-07-12' AS Date), 2)
+GO
+INSERT [dbo].[Logs] ([Id], [UserId], [TimeSpent], [Date], [TaskId]) VALUES (3, 3, 2, CAST(N'2021-07-11' AS Date), 2)
+GO
+SET IDENTITY_INSERT [dbo].[Logs] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Projects] ON 
+GO
+INSERT [dbo].[Projects] ([Id], [Name], [Description], [OwnerId], [DateCreation], [IdCreator], [DateLastChange], [IdLastChange]) VALUES (1, N'project1', N'project', 1, CAST(N'2021-07-12T13:45:59.357' AS DateTime), 1, CAST(N'2021-07-12T13:45:59.357' AS DateTime), 1)
+GO
+INSERT [dbo].[Projects] ([Id], [Name], [Description], [OwnerId], [DateCreation], [IdCreator], [DateLastChange], [IdLastChange]) VALUES (2, N'Test project', N'this is a test project', 1, CAST(N'2021-07-12T15:04:55.520' AS DateTime), 1, CAST(N'2021-07-12T16:00:22.023' AS DateTime), 1)
+GO
+SET IDENTITY_INSERT [dbo].[Projects] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Tasks] ON 
+GO
+INSERT [dbo].[Tasks] ([Id], [Title], [Description], [ProjectId], [AssigneeId], [Status], [DateCreation], [IdCreator], [DateLastChange], [IdLastChange]) VALUES (1, N'task1', N'test task', 2, 3, N'pending', CAST(N'2021-07-12T16:31:25.117' AS DateTime), 1, CAST(N'2021-07-12T16:31:25.117' AS DateTime), 1)
+GO
+INSERT [dbo].[Tasks] ([Id], [Title], [Description], [ProjectId], [AssigneeId], [Status], [DateCreation], [IdCreator], [DateLastChange], [IdLastChange]) VALUES (2, N'Test task', N'This is a test task', 2, 2, N'in progress', CAST(N'2021-07-13T09:44:57.390' AS DateTime), 1, CAST(N'2021-07-13T10:26:36.130' AS DateTime), 1)
+GO
+SET IDENTITY_INSERT [dbo].[Tasks] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Teams] ON 
+GO
+INSERT [dbo].[Teams] ([Id], [TeamName], [ProjectId], [DateCreation], [IdCreator], [DateLastChange], [IdLastChange]) VALUES (1, N'team2', 1, CAST(N'2021-07-12T13:48:03.700' AS DateTime), 1, CAST(N'2021-07-12T13:55:17.133' AS DateTime), 1)
+GO
+SET IDENTITY_INSERT [dbo].[Teams] OFF
+GO
 SET IDENTITY_INSERT [dbo].[Users] ON 
 GO
 INSERT [dbo].[Users] ([Id], [UserName], [Password], [FirstName], [LastName], [DateOfCreation], [IdOfCreator], [DateLastChange], [IdLastChange], [IsAdmin]) VALUES (1, N'admin', N'adminpass', N'admin', N'admin', CAST(N'2021-07-07T10:45:32.770' AS DateTime), 1, CAST(N'2021-07-07T10:45:32.770' AS DateTime), 1, 1)
@@ -208,6 +245,8 @@ INSERT [dbo].[Users] ([Id], [UserName], [Password], [FirstName], [LastName], [Da
 GO
 INSERT [dbo].[Users] ([Id], [UserName], [Password], [FirstName], [LastName], [DateOfCreation], [IdOfCreator], [DateLastChange], [IdLastChange], [IsAdmin]) VALUES (4, N'user3', N'password3', N'user3', N'user3', CAST(N'2021-07-08T10:45:53.673' AS DateTime), 1, CAST(N'2021-07-08T10:45:53.673' AS DateTime), 1, 0)
 GO
+INSERT [dbo].[Users] ([Id], [UserName], [Password], [FirstName], [LastName], [DateOfCreation], [IdOfCreator], [DateLastChange], [IdLastChange], [IsAdmin]) VALUES (1003, N'userIdk', N'userIdk123', N'user', N'idk', CAST(N'2021-07-13T11:59:53.390' AS DateTime), 1, CAST(N'2021-07-13T11:59:53.390' AS DateTime), 1, 0)
+GO
 SET IDENTITY_INSERT [dbo].[Users] OFF
 GO
 ALTER TABLE [dbo].[Logs] ADD  CONSTRAINT [DF_Logs_Date]  DEFAULT (getdate()) FOR [Date]
@@ -215,6 +254,10 @@ GO
 ALTER TABLE [dbo].[Projects] ADD  CONSTRAINT [DF_Projects_DateCreation]  DEFAULT (getdate()) FOR [DateCreation]
 GO
 ALTER TABLE [dbo].[Projects] ADD  CONSTRAINT [DF_Projects_DateLastChange]  DEFAULT (getdate()) FOR [DateLastChange]
+GO
+ALTER TABLE [dbo].[Tasks] ADD  CONSTRAINT [DF_Tasks_DateCreation]  DEFAULT (getdate()) FOR [DateCreation]
+GO
+ALTER TABLE [dbo].[Tasks] ADD  CONSTRAINT [DF_Tasks_DateLastChange]  DEFAULT (getdate()) FOR [DateLastChange]
 GO
 ALTER TABLE [dbo].[Teams] ADD  CONSTRAINT [DF_Teams_DateCreation]  DEFAULT (getdate()) FOR [DateCreation]
 GO
@@ -298,6 +341,10 @@ ALTER TABLE [dbo].[UsersTeams]  WITH CHECK ADD  CONSTRAINT [FK_UsersTeams_User] 
 REFERENCES [dbo].[Users] ([Id])
 GO
 ALTER TABLE [dbo].[UsersTeams] CHECK CONSTRAINT [FK_UsersTeams_User]
+GO
+ALTER TABLE [dbo].[Tasks]  WITH CHECK ADD  CONSTRAINT [CK_Tasks_Status] CHECK  (([Status]='pending' OR [Status]='in progress' OR [Status]='complete'))
+GO
+ALTER TABLE [dbo].[Tasks] CHECK CONSTRAINT [CK_Tasks_Status]
 GO
 USE [master]
 GO
