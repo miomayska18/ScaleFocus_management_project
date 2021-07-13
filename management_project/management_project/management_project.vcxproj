@@ -144,6 +144,7 @@
   <ItemGroup>
     <ClCompile Include="DisplayMethods.cpp" />
     <ClCompile Include="InsertFunctions.cpp" />
+    <ClCompile Include="Login.cpp" />
     <ClCompile Include="LogsCRUD.cpp" />
     <ClCompile Include="management_project.cpp" />
     <ClCompile Include="ProjectsCRUD.cpp" />
@@ -153,6 +154,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="InsertFunctions.h" />
+    <ClInclude Include="Login.h" />
     <ClInclude Include="LogsCRUD.h" />
     <ClInclude Include="ProjectsCRUD.h" />
     <ClInclude Include="Structures.h" />

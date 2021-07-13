@@ -10,38 +10,30 @@
 #include "ProjectsCRUD.h"
 #include "TasksCRUD.h"
 #include "LogsCRUD.h"
+#include "Login.h"
 
 using namespace std;
 
-USER getLoggedUserInfo(nanodbc::connection conn, string username, string password)
+void adminMenu(nanodbc::connection conn, USER& user)
 {
-	USER user;
-	nanodbc::statement statement(conn);
-	nanodbc::prepare(statement, NANODBC_TEXT(R"( 
-        SELECT *
-            FROM [ProjectManagement].[dbo].[Users]
-		WHERE
-			UserName = ? AND Password = ?
-    )"));
-	statement.bind(0, username.c_str());
-	statement.bind(1, password.c_str());
+	cout << "		ADMIN MENU			" << endl;
+	cout << "1. Users operations" << endl;
+	cout << "2. Teams opeartions" << endl;
+	cout << "3. Projects operations" << endl;
+	cout << "Enter your choice: ";
 
-	auto result = execute(statement);
-	
-	while (result.next())
+	int choice = enterInt();
+
+	switch (choice)
 	{
-		user.id = result.get<int>("Id");
-		user.username = result.get<nanodbc::string>("UserName", "");
-		user.password = result.get<nanodbc::string>("Password", "");
-		user.firstName = result.get<nanodbc::string>("FirstName", "");
-		user.lastName = result.get<nanodbc::string>("LastName", "");
-		user.dateOfCreation = result.get<nanodbc::string>("DateOfCreation", "");
-		user.idOfCreator = result.get<int>("IdOfCreator");
-		user.dateLastChange = result.get<nanodbc::string>("DateLastChange", "");
-		user.idLastChange = result.get<int>("IdLastChange");
-		user.isAdmin = result.get<int>("IsAdmin");
+	case 1: cout << "User menu with CRUD" << endl;
+		break;
+	case 2: cout << "Teams menu with crud options" << endl;
+		break;
+	case 3: cout << "Projects menu with CRUD" << endl;
+		break;
 	}
-	return user;
+
 }
 
 void loginMenu(nanodbc::connection conn, USER& user)
@@ -56,8 +48,8 @@ void loginMenu(nanodbc::connection conn, USER& user)
 	{
 		if (username == "admin" and password == "adminpass")
 		{
-			cout << "admin menu" << endl;
-			user.displayUser();
+			adminMenu(conn, user);
+			//cout << "admin menu" << endl;
 		}
 		else
 		{
