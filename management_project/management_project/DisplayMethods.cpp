@@ -53,16 +53,8 @@ void TASK::displayTask()
 	cout << "Task title: " << this->title << endl;
 	cout << "Description: " << this->description << endl;
 	cout << "Project id: " << this->projectId << endl;
-	cout << "Task status: ";
-	/*if (this->status)
-	{
-		cout << "complete" << endl;
-	}
-	else
-	{
-		cout << "pending" << endl;
-	}*/
-	cout << endl;
+	cout << "Assignee id: " << this->assigneeId << endl;
+	cout << "Task status: " << this->status << endl;
 	cout << "Date of creation: " << this->dateOfCreation << endl;
 	cout << "Id of creator: " << this->idOfCreator << endl;
 	cout << "Date of last modification: " << this->dateLastChange << endl;

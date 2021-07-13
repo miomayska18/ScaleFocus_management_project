@@ -49,6 +49,7 @@ struct TASK
 	std::string title = "";
 	std::string description = "";
 	int projectId = 0;
+	int assigneeId = 0;
 	std::string status = "";
 	std::string dateOfCreation = "";
 	int idOfCreator = 0;
