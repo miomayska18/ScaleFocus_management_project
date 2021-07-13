@@ -114,7 +114,7 @@ bool deleteProjectById(nanodbc::connection conn, const int& id)
 	nanodbc::statement statement(conn);
 	nanodbc::prepare(statement, NANODBC_TEXT(R"(
         DELETE 
-            FROM [ProjectManagement].[dbo].[Project]
+            FROM [ProjectManagement].[dbo].[Projects]
             WHERE Id = ?
     )"));
 
