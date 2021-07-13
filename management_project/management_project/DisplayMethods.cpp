@@ -63,9 +63,9 @@ void TASK::displayTask()
 
 void LOG::displayLog()
 {
-	cout << "Log id: " << endl;
-	cout << "User id: " << endl;
-	cout << "Timse spent working (in minutes): " << endl;
-	cout << "Date: " << endl;
-	cout << "Task id: " << endl;
+	cout << "Log id: " << this->id << endl;
+	cout << "User id: " << this->userId << endl;
+	cout << "Timse spent working (in minutes): " << this->timeSpent << endl;
+	cout << "Date: " << this->date << endl;
+	cout << "Task id: " << this->taskId << endl;
 }

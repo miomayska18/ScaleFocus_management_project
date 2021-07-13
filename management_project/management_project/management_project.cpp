@@ -12,6 +12,44 @@
 
 using namespace std;
 
+vector<LOG> getLogs(nanodbc::connection conn)
+{
+	vector<LOG> logs;
+	nanodbc::statement statement(conn);
+	nanodbc::prepare(statement, NANODBC_TEXT(R"( 
+        SELECT *
+            FROM [ProjectManagement].[dbo].[Logs]
+    )"));
+
+	auto result = execute(statement);
+
+	while (result.next())
+	{
+		LOG log;
+		log.id = result.get<int>("Id");
+		log.userId = result.get<int>("UserId");
+		log.timeSpent = result.get<int>("TimeSpent");
+		log.date = result.get<nanodbc::string>("Date");
+		log.taskId = result.get<int>("TaskId");
+
+		logs.push_back(log);
+	}
+
+	return logs;
+}
+
+void getAllLogs(nanodbc::connection conn)
+{
+	vector<LOG> logs = getLogs(conn);
+
+	for (size_t i = 0; i < logs.size(); i++)
+	{
+		logs[i].displayLog();
+		cout << endl;
+	}
+
+}
+
 int main()
 {
 	try
@@ -37,9 +75,11 @@ int main()
 		//insertProject(conn);
 		//editProjectById(conn, 2);
 
-		getAllTasks(conn);
+		//getAllTasks(conn);
 		//insertTask(conn);
 		//editTaskById(conn, 2);
+
+		getAllLogs(conn);
 
 		return EXIT_SUCCESS;
 	}
