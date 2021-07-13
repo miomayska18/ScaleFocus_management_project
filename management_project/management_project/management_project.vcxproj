@@ -146,6 +146,7 @@
     <ClCompile Include="InsertFunctions.cpp" />
     <ClCompile Include="management_project.cpp" />
     <ClCompile Include="ProjectsCRUD.cpp" />
+    <ClCompile Include="TasksCRUD.cpp" />
     <ClCompile Include="TeamsCRUD.cpp" />
     <ClCompile Include="UserCRUD.cpp" />
   </ItemGroup>
@@ -153,6 +154,7 @@
     <ClInclude Include="InsertFunctions.h" />
     <ClInclude Include="ProjectsCRUD.h" />
     <ClInclude Include="Structures.h" />
+    <ClInclude Include="TasksCRUD.h" />
     <ClInclude Include="TeamsCRUD.h" />
     <ClInclude Include="UserCRUD.h" />
   </ItemGroup>

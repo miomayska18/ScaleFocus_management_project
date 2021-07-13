@@ -33,6 +33,9 @@
     <ClCompile Include="ProjectsCRUD.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TasksCRUD.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Structures.h">
@@ -48,6 +51,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ProjectsCRUD.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TasksCRUD.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
