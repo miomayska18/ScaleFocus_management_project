@@ -13,6 +13,62 @@
 
 using namespace std;
 
+USER getLoggedUserInfo(nanodbc::connection conn, string username, string password)
+{
+	USER user;
+	nanodbc::statement statement(conn);
+	nanodbc::prepare(statement, NANODBC_TEXT(R"( 
+        SELECT *
+            FROM [ProjectManagement].[dbo].[Users]
+		WHERE
+			UserName = ? AND Password = ?
+    )"));
+	statement.bind(0, username.c_str());
+	statement.bind(1, password.c_str());
+
+	auto result = execute(statement);
+	
+	while (result.next())
+	{
+		user.id = result.get<int>("Id");
+		user.username = result.get<nanodbc::string>("UserName", "");
+		user.password = result.get<nanodbc::string>("Password", "");
+		user.firstName = result.get<nanodbc::string>("FirstName", "");
+		user.lastName = result.get<nanodbc::string>("LastName", "");
+		user.dateOfCreation = result.get<nanodbc::string>("DateOfCreation", "");
+		user.idOfCreator = result.get<int>("IdOfCreator");
+		user.dateLastChange = result.get<nanodbc::string>("DateLastChange", "");
+		user.idLastChange = result.get<int>("IdLastChange");
+		user.isAdmin = result.get<int>("IsAdmin");
+	}
+	return user;
+}
+
+void loginMenu(nanodbc::connection conn, USER& user)
+{
+	cout << "		LOG IN			" << endl;
+	cout << "Username: "; const string username = enterText(false);
+	cout << "Password: "; const string password = enterText(false);
+
+	user = getLoggedUserInfo(conn, username, password);
+
+	if (user.id>0) 
+	{
+		if (username == "admin" and password == "adminpass")
+		{
+			cout << "admin menu" << endl;
+			user.displayUser();
+		}
+		else
+		{
+			cout << "User menu" << endl;
+		}
+	}
+	else {
+		cout << "User ne e nameren :/" << endl;
+	}
+}
+
 
 int main()
 {
@@ -21,6 +77,8 @@ int main()
 		nanodbc::string connstr = NANODBC_TEXT("DRIVER={ODBC Driver 17 for SQL Server};SERVER=(localdb)\\MSSQLLocalDB;DATABASE=ProjectManagement;Trusted_Connection=yes;"); // an ODBC connection string to your database
 
 		nanodbc::connection conn(connstr);
+
+		USER loggedUser{};
 
 		/*do
 		{
@@ -43,9 +101,11 @@ int main()
 		//insertTask(conn);
 		//editTaskById(conn, 2);
 
-		getAllLogs(conn);
+		//getAllLogs(conn);
 		//insertLog(conn);
 		//editLogById(conn, 1);
+
+		loginMenu(conn, loggedUser);
 
 
 		return EXIT_SUCCESS;
