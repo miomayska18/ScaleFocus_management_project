@@ -59,12 +59,12 @@ void insertProject(nanodbc::connection conn)
     )"));
 
 	cout << "Enter the Project's name: ";
-	const string projectName = enterText();
+	const string projectName = enterText(false);
 	statement.bind(0, projectName.c_str());
 
 	cout << "Enter the project's description" << endl;
 	cout << "Please press Enter only when you are done writing: ";
-	const string description = enterText();
+	const string description = enterText(false);
 	statement.bind(1, description.c_str());
 
 	cout << "Enter your id: ";
@@ -93,11 +93,11 @@ void editProjectById(nanodbc::connection conn, const int& id)
 
 
 	cout << "Enter the project's new name: ";
-	const string name = enterText();
+	const string name = enterText(false);
 	statement.bind(0, name.c_str());
 
 	cout << "Enter the project's new description: ";
-	const string description = enterText();
+	const string description = enterText(false);
 	statement.bind(1, description.c_str());
 
 	cout << "Enter your id: ";

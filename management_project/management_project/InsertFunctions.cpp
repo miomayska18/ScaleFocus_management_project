@@ -2,13 +2,20 @@
 #include <string>
 using namespace std;
 
-string enterText()
+string enterText(bool ignore)
 {
-	cin.ignore(0, '\n');
+	if (ignore) cin.ignore(/*0, '\n'*/);
 	string text;
 	getline(cin, text);
 
 	return text;
+}
+
+double enterDouble()
+{
+	double num;
+	cin >> num;
+	return num;
 }
 
 int enterInt()
@@ -18,9 +25,3 @@ int enterInt()
 	return num;
 }
 
-/*double enterDouble()
-{
-	double num;
-	cin >> num;
-	return num;
-}*/

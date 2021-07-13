@@ -64,11 +64,11 @@ void insertTask(nanodbc::connection conn)
     )"));
 
 	cout << "Enter the task's title: ";
-	const string taskName = enterText();
+	const string taskName = enterText(false);
 	statement.bind(0, taskName.c_str());
 
 	cout << "Enter the task's description: ";
-	const string taskDesc = enterText();
+	const string taskDesc = enterText(false);
 	statement.bind(1, taskDesc.c_str());
 
 	cout << "Enter the assigned project id: ";
@@ -129,11 +129,11 @@ void editTaskById(nanodbc::connection conn, const int& id)
     )"));
 
 	cout << "Enter the task's new title: ";
-	const string title = enterText();
+	const string title = enterText(false);
 	statement.bind(0, title.c_str());
 
 	cout << "Enter the team's new description: ";
-	const string desc = enterText();
+	const string desc = enterText(false);
 	statement.bind(1, desc.c_str());
 
 	int statusNum;

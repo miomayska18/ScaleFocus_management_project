@@ -61,19 +61,19 @@ void insertUser(nanodbc::connection conn)
     )"));
 
 	cout << "Enter the username: ";
-	const string username = enterText();
+	const string username = enterText(false);
 	statement.bind(0, username.c_str());
 
 	cout << "Enter the password: ";
-	const string password = enterText();
+	const string password = enterText(false);
 	statement.bind(1, password.c_str());
 
 	cout << "Enter the user's first name: ";
-	const string firstName = enterText();
+	const string firstName = enterText(false);
 	statement.bind(2, firstName.c_str());
 
 	cout << "Enter the user's last name: ";
-	const string lastName = enterText();
+	const string lastName = enterText(false);
 	statement.bind(3, lastName.c_str());
 
 	cout << "Enter your id: ";
@@ -107,19 +107,19 @@ void editUserById(nanodbc::connection conn, const int& id)
 
 
 	cout << "Enter the new username: ";
-	const string username = enterText();
+	const string username = enterText(false);
 	statement.bind(0, username.c_str());
 
 	cout << "Enter the new password: ";
-	const string password = enterText();
+	const string password = enterText(false);
 	statement.bind(1, password.c_str());
 
 	cout << "Enter the user's new first name: ";
-	const string firstName = enterText();
+	const string firstName = enterText(false);
 	statement.bind(2, firstName.c_str());
 
 	cout << "Enter the user's new last name: ";
-	const string lastName = enterText();
+	const string lastName = enterText(false);
 	statement.bind(3, lastName.c_str());
 
 	cout << "Enter your id: ";

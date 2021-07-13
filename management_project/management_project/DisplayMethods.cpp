@@ -65,7 +65,7 @@ void LOG::displayLog()
 {
 	cout << "Log id: " << this->id << endl;
 	cout << "User id: " << this->userId << endl;
-	cout << "Timse spent working (in minutes): " << this->timeSpent << endl;
+	cout << "Timse spent working (in hours): " << this->timeSpent << endl;
 	cout << "Date: " << this->date << endl;
 	cout << "Task id: " << this->taskId << endl;
 }
