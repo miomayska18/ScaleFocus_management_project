@@ -12,6 +12,7 @@ struct USER
 	std::string dateLastChange = "";
 	int idLastChange = 0;
 	bool isAdmin = 0;
+	bool isDeleted = 0;
 
 	void displayUser();
 };
@@ -25,6 +26,7 @@ struct TEAM
 	int idOfCreator = 0;
 	std::string dateLastChange = "";
 	int idLastChange = 0;
+	bool isDeleted = 0;
 
 	void displayTeam();
 };
@@ -39,6 +41,7 @@ struct PROJECT
 	int idOfCreator = 0;
 	std::string dateLastChange = "";
 	int idLastChange = 0;
+	bool isDelted = 0;
 
 	void displayProject();
 };
@@ -55,6 +58,7 @@ struct TASK
 	int idOfCreator = 0;
 	std::string dateLastChange = "";
 	int idLastChange = 0;
+	bool isDeleted = 0;
 
 	void displayTask();
 };
@@ -66,6 +70,7 @@ struct LOG
 	double timeSpent = 0;
 	std::string date = "";
 	int taskId = 0;
+	bool isDeleted = 0;
 
 	void displayLog();
 };
