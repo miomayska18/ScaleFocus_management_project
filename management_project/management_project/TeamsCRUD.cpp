@@ -46,9 +46,17 @@ void getAllTeams(nanodbc::connection conn)
 		cout << endl;
 	}
 
+	cout << endl << endl;
+
+	int choice = 1;
+	do {
+		cout << "Enter 0 to get back to the menu: ";
+		choice = enterInt();
+	} while (choice != 0);
+
 }
 
-void insertTeam(nanodbc::connection conn)
+void insertTeam(nanodbc::connection conn, USER& user)
 {
 	nanodbc::statement statement(conn);
 	nanodbc::prepare(statement, NANODBC_TEXT(R"(
@@ -67,15 +75,15 @@ void insertTeam(nanodbc::connection conn)
 	const int projectId = enterInt();
 	statement.bind(1, &projectId);
 
-	cout << "Enter your id: ";
-	const int creatorId = enterInt();
-	statement.bind(2, &creatorId);
-	statement.bind(3, &creatorId);
+	//cout << "Enter your id: ";
+	//const int creatorId = enterInt();
+	statement.bind(2, &user.id);
+	statement.bind(3, &user.id);
 
 	execute(statement);
 }
 
-void editTeamById(nanodbc::connection conn, const int& id)
+void editTeamById(nanodbc::connection conn, const int& id, USER& user)
 {
 	nanodbc::statement statement(conn);
 	nanodbc::prepare(statement, NANODBC_TEXT(R"(
@@ -94,9 +102,9 @@ void editTeamById(nanodbc::connection conn, const int& id)
 	const string name = enterText(false);
 	statement.bind(0, name.c_str());
 
-	cout << "Enter your id: ";
-	const int modifierId = enterInt();
-	statement.bind(1, &modifierId);
+	//cout << "Enter your id: ";
+	//const int modifierId = enterInt();
+	statement.bind(1, &user.id);
 
 	statement.bind(2, &id);
 

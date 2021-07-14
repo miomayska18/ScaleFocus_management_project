@@ -14,6 +14,47 @@
 
 using namespace std;
 
+void adminTeamMenu(nanodbc::connection conn, USER& user)
+{
+	do {
+		system("cls");
+		cout << "		TEAM MANAGEMENT MENU		" << endl;
+		cout << "1. Create team" << endl;
+		cout << "2. Edit team" << endl;
+		cout << "3. List all teams" << endl;
+		cout << "4. Delete team" << endl;
+		cout << "0. Exit" << endl;
+	enter:
+		cout << endl;
+		cout << "Enter your choice: ";
+
+		short int choice = enterInt();
+		system("cls");
+		int id;
+		switch (choice)
+		{
+		case 1: insertTeam(conn, );
+			break;
+		case 2:
+			cout << "Enter the id of the team you want to edit: ";
+			id = enterInt();
+			editTeamById(conn, id, );
+			break;
+		case 3: getAllTeams(conn);
+			break;
+		case 4:
+			cout << "Enter the id of the team you want to delete: ";
+			id = enterInt();
+			deleteTeamById(conn, id);
+			break;
+		case 0: return;
+		default: cout << "Please enter a valid option!" << endl;
+			goto enter;
+			break;
+		}
+	} while (true);
+}
+
 void adminUserMenu(nanodbc::connection conn, USER& user)
 {
 	do {
@@ -40,7 +81,7 @@ void adminUserMenu(nanodbc::connection conn, USER& user)
 			id = enterInt();
 			editUserById(conn, id);
 			break;
-		case 3: getAllUsers(conn, user);
+		case 3: getAllUsers(conn);
 			break;
 		case 4:
 			cout << "Enter the id of the user you want to delete: ";
@@ -74,7 +115,8 @@ void adminMenu(nanodbc::connection conn, USER& user)
 		case 1: //cout << "User menu with CRUD" << endl;
 			adminUserMenu(conn, user);
 			break;
-		case 2: cout << "Teams menu with crud options" << endl;
+		case 2: //cout << "Teams menu with crud options" << endl;
+			adminTeamMenu(conn, user);
 			break;
 		case 3: cout << "Projects menu with CRUD" << endl;
 			break;
@@ -149,7 +191,7 @@ int main()
 		//editLogById(conn, 1);
 		//deleteLogById(conn, 1);
 
-		//loginMenu(conn, loggedUser);
+		loginMenu(conn, loggedUser);
 
 
 		return EXIT_SUCCESS;

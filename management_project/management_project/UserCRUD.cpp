@@ -39,7 +39,7 @@ vector<USER> getUsers(nanodbc::connection conn)
 	return users;
 }
 
-void getAllUsers(nanodbc::connection conn, USER& user)
+void getAllUsers(nanodbc::connection conn)
 {
 	vector<USER> users = getUsers(conn);
 
@@ -53,7 +53,7 @@ void getAllUsers(nanodbc::connection conn, USER& user)
 	
 	int choice = 1;
 	do {
-		cout << "Enter 0 to get back to the user menu: ";
+		cout << "Enter 0 to get back to the menu: ";
 		choice = enterInt();
 	} while (choice != 0);
 }
@@ -70,7 +70,7 @@ void insertUser(nanodbc::connection conn)
     )"));
 
 	cout << "Enter the username: ";
-	const string username = enterText(false);
+	const string username = enterText(true);
 	statement.bind(0, username.c_str());
 
 	cout << "Enter the password: ";
@@ -116,7 +116,7 @@ void editUserById(nanodbc::connection conn, const int& id)
 
 
 	cout << "Enter the new username: ";
-	const string username = enterText(false);
+	const string username = enterText(true);
 	statement.bind(0, username.c_str());
 
 	cout << "Enter the new password: ";

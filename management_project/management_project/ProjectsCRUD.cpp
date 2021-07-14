@@ -49,7 +49,7 @@ void getAllProjects(nanodbc::connection conn)
 
 }
 
-void insertProject(nanodbc::connection conn)
+void insertProject(nanodbc::connection conn, USER& user)
 {
 	nanodbc::statement statement(conn);
 	nanodbc::prepare(statement, NANODBC_TEXT(R"(
@@ -61,7 +61,7 @@ void insertProject(nanodbc::connection conn)
     )"));
 
 	cout << "Enter the Project's name: ";
-	const string projectName = enterText(false);
+	const string projectName = enterText(true);
 	statement.bind(0, projectName.c_str());
 
 	cout << "Enter the project's description" << endl;
@@ -69,16 +69,16 @@ void insertProject(nanodbc::connection conn)
 	const string description = enterText(false);
 	statement.bind(1, description.c_str());
 
-	cout << "Enter your id: ";
-	const int creatorId = enterInt();
-	statement.bind(2, &creatorId);
-	statement.bind(3, &creatorId);
-	statement.bind(4, &creatorId);
+	//cout << "Enter your id: ";
+	//const int creatorId = enterInt();
+	statement.bind(2, &user.id);
+	statement.bind(3, &user.id);
+	statement.bind(4, &user.id);
 
 	execute(statement);
 }
 
-void editProjectById(nanodbc::connection conn, const int& id)
+void editProjectById(nanodbc::connection conn, const int& id, USER& user)
 {
 	nanodbc::statement statement(conn);
 	nanodbc::prepare(statement, NANODBC_TEXT(R"(
@@ -95,16 +95,16 @@ void editProjectById(nanodbc::connection conn, const int& id)
 
 
 	cout << "Enter the project's new name: ";
-	const string name = enterText(false);
+	const string name = enterText(true);
 	statement.bind(0, name.c_str());
 
 	cout << "Enter the project's new description: ";
 	const string description = enterText(false);
 	statement.bind(1, description.c_str());
 
-	cout << "Enter your id: ";
-	const int modifierId = enterInt();
-	statement.bind(2, &modifierId);
+	//cout << "Enter your id: ";
+	//const int modifierId = enterInt();
+	statement.bind(2, &user.id);
 
 	statement.bind(3, &id);
 

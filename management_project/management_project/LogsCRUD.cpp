@@ -15,7 +15,7 @@ vector<LOG> getLogs(nanodbc::connection conn)
         SELECT *
             FROM [ProjectManagement].[dbo].[Logs]
 		WHERE
-			IsDelted<>1
+			IsDeleted<>1
     )"));
 
 	auto result = execute(statement);

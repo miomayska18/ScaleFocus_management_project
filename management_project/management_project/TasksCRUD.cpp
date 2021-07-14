@@ -51,7 +51,7 @@ void getAllTasks(nanodbc::connection conn)
 
 }
 
-void insertTask(nanodbc::connection conn)
+void insertTask(nanodbc::connection conn, USER& user)
 {
 	string status[3] = { "pending", "in progress", "complete" };
 
@@ -65,7 +65,7 @@ void insertTask(nanodbc::connection conn)
     )"));
 
 	cout << "Enter the task's title: ";
-	const string taskName = enterText(false);
+	const string taskName = enterText(true);
 	statement.bind(0, taskName.c_str());
 
 	cout << "Enter the task's description: ";
@@ -103,15 +103,15 @@ enter:
 
 
 
-	cout << "Enter your id: ";
-	const int creatorId = enterInt();
-	statement.bind(5, &creatorId);
-	statement.bind(6, &creatorId);
+	//cout << "Enter your id: ";
+	//const int creatorId = enterInt();
+	statement.bind(5, &user.id);
+	statement.bind(6, &user.id);
 
 	execute(statement);
 }
 
-void editTaskById(nanodbc::connection conn, const int& id)
+void editTaskById(nanodbc::connection conn, const int& id, USER& user)
 {
 	string status[3] = { "pending", "in progress", "complete" };
 
@@ -130,7 +130,7 @@ void editTaskById(nanodbc::connection conn, const int& id)
     )"));
 
 	cout << "Enter the task's new title: ";
-	const string title = enterText(false);
+	const string title = enterText(true);
 	statement.bind(0, title.c_str());
 
 	cout << "Enter the team's new description: ";
@@ -162,9 +162,9 @@ enter:
 	const int assigneeId = enterInt();
 	statement.bind(3, &assigneeId);
 
-	cout << "Enter your id: ";
-	const int chngId = enterInt();
-	statement.bind(4, &chngId);
+	//cout << "Enter your id: ";
+	//const int chngId = enterInt();
+	statement.bind(4, &user.id);
 
 	statement.bind(5, &id);
 
