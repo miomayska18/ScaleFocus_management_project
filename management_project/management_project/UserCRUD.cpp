@@ -13,7 +13,8 @@ vector<USER> getUsers(nanodbc::connection conn)
 	nanodbc::prepare(statement, NANODBC_TEXT(R"( 
         SELECT *
             FROM [ProjectManagement].[dbo].[Users]
-			WHERE isDeleted<>1
+		WHERE 
+			isDeleted<>1
     )"));
 
 	auto result = execute(statement);
@@ -143,9 +144,12 @@ void deleteUserById(nanodbc::connection conn, const int& id)
 {
 	nanodbc::statement statement(conn);
 	nanodbc::prepare(statement, NANODBC_TEXT(R"(
-			UPDATE	Users 
-			SET isDeleted = 1
-            WHERE Id = ?
+		UPDATE	
+			Users 
+		SET 
+			isDeleted = 1
+        WHERE 
+			Id = ?
     )"));
 
 	statement.bind(0, &id);

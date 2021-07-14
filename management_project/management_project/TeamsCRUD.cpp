@@ -13,6 +13,8 @@ vector<TEAM> getTeams(nanodbc::connection conn)
 	nanodbc::prepare(statement, NANODBC_TEXT(R"( 
         SELECT *
             FROM [ProjectManagement].[dbo].[Teams]
+		WHERE
+			IsDeleted<>1
     )"));
 
 	auto result = execute(statement);
@@ -101,18 +103,19 @@ void editTeamById(nanodbc::connection conn, const int& id)
 	execute(statement);
 }
 
-bool deleteTeamById(nanodbc::connection conn, const int& id)
+void deleteTeamById(nanodbc::connection conn, const int& id)
 {
 	nanodbc::statement statement(conn);
 	nanodbc::prepare(statement, NANODBC_TEXT(R"(
-        DELETE 
-            FROM [ProjectManagement].[dbo].[Teams]
-            WHERE Id = ?
+        UPDATE 
+           Teams
+		SET
+			IsDeleted = 1
+        WHERE 
+			Id = ?
     )"));
 
 	statement.bind(0, &id);
 
 	auto result = execute(statement);
-
-	return result.affected_rows() != 0;
 }

@@ -131,6 +131,7 @@ int main()
 		//insertTeam(conn);
 		//getAllTeams(conn);
 		//editTeamById(conn, 1);
+		//deleteTeamById(conn, 1);
 
 		//getAllProjects(conn);
 		//insertProject(conn);
