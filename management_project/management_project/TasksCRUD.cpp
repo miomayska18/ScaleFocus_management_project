@@ -1,4 +1,4 @@
-#include <iostream>
+﻿#include <iostream>
 #include "Structures.h"
 #include <nanodbc.h>
 #include <vector>
@@ -45,8 +45,10 @@ void getAllTasks(nanodbc::connection conn)
 
 	for (size_t i = 0; i < tasks.size(); i++)
 	{
+		printSpaces(2); cout << u8"╔═════════════════════════════════════════════════════════════╗" << endl << endl;
 		tasks[i].displayTask();
 		cout << endl;
+		printSpaces(2); cout << u8"╚═════════════════════════════════════════════════════════════╝" << endl << endl << endl;
 	}
 
 	cout << endl << endl;
@@ -70,29 +72,29 @@ void insertTask(nanodbc::connection conn, USER& user)
             (?, ?, ?, ?, ?, GETDATE(), ?, GETDATE(), ?)
     )"));
 
-	cout << "Enter the task's title: ";
+	printSpaces(4); cout << "Enter the task's title: ";
 	const string taskName = enterText(true);
 	statement.bind(0, taskName.c_str());
 
-	cout << "Enter the task's description: ";
+	printSpaces(4); cout << "Enter the task's description: ";
 	const string taskDesc = enterText(false);
 	statement.bind(1, taskDesc.c_str());
 
-	cout << "Enter the assigned project id: ";
+	printSpaces(4); cout << "Enter the assigned project id: ";
 	const int projectId = enterInt();
 	statement.bind(2, &projectId);
 
-	cout << "Enter the assigned user's id: ";
+	printSpaces(4); cout << "Enter the assigned user's id: ";
 	const int assigneeId = enterInt();
 	statement.bind(3, &assigneeId);
 
 	int statusNum;
-	cout << "Choose the status of this task: " << endl;
-	cout << "1. Pending" << endl;
-	cout << "2. In progress" << endl;
-	cout << "3. Complete" << endl;
+	printSpaces(4); cout << "Choose the status of this task: " << endl;
+	printSpaces(4); cout << "1. Pending" << endl;
+	printSpaces(4); cout << "2. In progress" << endl;
+	printSpaces(4); cout << "3. Complete" << endl;
 enter:
-	cout << "Enter your choice: ";
+	printSpaces(4); cout << "Enter your choice: ";
 	statusNum = enterInt();
 
 	switch (statusNum)
@@ -103,7 +105,7 @@ enter:
 		break;
 	case 3: statement.bind(4, status[2].c_str());
 		break;
-	default: cout << "Please choose from the available options!" << endl;
+	default: printSpaces(4); cout << "Please choose from the available options!" << endl;
 		goto enter;
 	}
 
@@ -135,21 +137,21 @@ void editTaskById(nanodbc::connection conn, const int& id, USER& user)
 			Id = ?
     )"));
 
-	cout << "Enter the task's new title: ";
+	printSpaces(4); cout << "Enter the task's new title: ";
 	const string title = enterText(true);
 	statement.bind(0, title.c_str());
 
-	cout << "Enter the team's new description: ";
+	printSpaces(4); cout << "Enter the team's new description: ";
 	const string desc = enterText(false);
 	statement.bind(1, desc.c_str());
 
 	int statusNum;
-	cout << "Choose the status of this task: " << endl;
-	cout << "1. Pending" << endl;
-	cout << "2. In progress" << endl;
-	cout << "3. Complete" << endl;
+	printSpaces(4); cout << "Choose the status of this task: " << endl;
+	printSpaces(4); cout << "1. Pending" << endl;
+	printSpaces(4); cout << "2. In progress" << endl;
+	printSpaces(4); cout << "3. Complete" << endl;
 enter:
-	cout << "Enter your choice: ";
+	printSpaces(4); cout << "Enter your choice: ";
 	statusNum = enterInt();
 
 	switch (statusNum)
@@ -160,11 +162,11 @@ enter:
 		break;
 	case 3: statement.bind(2, status[2].c_str());
 		break;
-	default: cout << "Please choose from the available options!" << endl;
+	default: printSpaces(4); cout << "Please choose from the available options!" << endl;
 		goto enter;
 	}
 
-	cout << "Enter the assigned user's id: ";
+	printSpaces(4); cout << "Enter the assigned user's id: ";
 	const int assigneeId = enterInt();
 	statement.bind(3, &assigneeId);
 

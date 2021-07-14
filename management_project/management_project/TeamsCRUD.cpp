@@ -1,4 +1,4 @@
-#include <iostream>
+﻿#include <iostream>
 #include "Structures.h"
 #include <nanodbc.h>
 #include <vector>
@@ -42,8 +42,10 @@ void getAllTeams(nanodbc::connection conn)
 
 	for (size_t i = 0; i < teams.size(); i++)
 	{
+		printSpaces(2); cout << u8"╔═════════════════════════════════════════════════════════════╗" << endl << endl;
 		teams[i].displayTeam();
 		cout << endl;
+		printSpaces(2); cout << u8"╚═════════════════════════════════════════════════════════════╝" << endl << endl << endl;
 	}
 
 	cout << endl << endl;
@@ -67,11 +69,11 @@ void insertTeam(nanodbc::connection conn, USER& user)
             (?, ?, GETDATE(), ?, GETDATE(), ?)
     )"));
 
-	cout << "Enter the team's name: ";
+	printSpaces(4); cout << "Enter the team's name: ";
 	const string teamName = enterText(true);
 	statement.bind(0, teamName.c_str());
 
-	cout << "Enter the assigned project id: ";
+	printSpaces(4); cout << "Enter the assigned project id: ";
 	const int projectId = enterInt();
 	statement.bind(1, &projectId);
 
@@ -98,7 +100,7 @@ void editTeamById(nanodbc::connection conn, const int& id, USER& user)
 
 
 
-	cout << "Enter the team's new name: ";
+	printSpaces(4); cout << "Enter the team's new name: ";
 	const string name = enterText(true);
 	statement.bind(0, name.c_str());
 

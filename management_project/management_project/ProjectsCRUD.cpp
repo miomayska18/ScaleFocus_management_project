@@ -1,4 +1,4 @@
-#include <iostream>
+﻿#include <iostream>
 #include "Structures.h"
 #include <nanodbc.h>
 #include <vector>
@@ -43,8 +43,10 @@ void getAllProjects(nanodbc::connection conn)
 
 	for (size_t i = 0; i < projects.size(); i++)
 	{
+		printSpaces(2); cout << u8"╔═════════════════════════════════════════════════════════════╗" << endl << endl;
 		projects[i].displayProject();
 		cout << endl;
+		printSpaces(2); cout << u8"╚═════════════════════════════════════════════════════════════╝" << endl << endl << endl;
 	}
 
 	int choice = 1;
@@ -65,12 +67,12 @@ void insertProject(nanodbc::connection conn, USER& user)
             (?, ?, ?, GETDATE(), ?, GETDATE(), ?)
     )"));
 
-	cout << "Enter the Project's name: ";
+	printSpaces(4); cout << "Enter the Project's name: ";
 	const string projectName = enterText(true);
 	statement.bind(0, projectName.c_str());
 
-	cout << "Enter the project's description" << endl;
-	cout << "Please press Enter only when you are done writing: ";
+	printSpaces(4); cout << "Enter the project's description" << endl;
+	printSpaces(4); cout << "Please press Enter only when you are done writing: ";
 	const string description = enterText(false);
 	statement.bind(1, description.c_str());
 
@@ -99,11 +101,11 @@ void editProjectById(nanodbc::connection conn, const int& id, USER& user)
 
 
 
-	cout << "Enter the project's new name: ";
+	printSpaces(4); cout << "Enter the project's new name: ";
 	const string name = enterText(true);
 	statement.bind(0, name.c_str());
 
-	cout << "Enter the project's new description: ";
+	printSpaces(4); cout << "Enter the project's new description: ";
 	const string description = enterText(false);
 	statement.bind(1, description.c_str());
 

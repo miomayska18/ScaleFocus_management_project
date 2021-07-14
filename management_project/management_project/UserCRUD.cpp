@@ -1,4 +1,4 @@
-#include <iostream>
+﻿#include <iostream>
 #include "Structures.h"
 #include <nanodbc.h>
 #include <vector>
@@ -45,9 +45,13 @@ void getAllUsers(nanodbc::connection conn)
 
 	for (size_t i = 0; i < users.size(); i++)
 	{
+		printSpaces(2); cout << u8"╔═════════════════════════════════════════════════════════════╗" << endl << endl;
 		users[i].displayUser();
 		cout << endl;
+		printSpaces(2); cout << u8"╚═════════════════════════════════════════════════════════════╝" << endl << endl << endl;
 	}
+
+	
 
 	cout << endl << endl;
 	
@@ -69,19 +73,19 @@ void insertUser(nanodbc::connection conn, USER& user)
             (?, ?, ?, ?, ?, ?, ?)
     )"));
 
-	cout << "Enter the username: ";
+	printSpaces(4); cout << "Enter the username: ";
 	const string username = enterText(true);
 	statement.bind(0, username.c_str());
 
-	cout << "Enter the password: ";
+	printSpaces(4); cout << "Enter the password: ";
 	const string password = enterText(false);
 	statement.bind(1, password.c_str());
 
-	cout << "Enter the user's first name: ";
+	printSpaces(4); cout << "Enter the user's first name: ";
 	const string firstName = enterText(false);
 	statement.bind(2, firstName.c_str());
 
-	cout << "Enter the user's last name: ";
+	printSpaces(4); cout << "Enter the user's last name: ";
 	const string lastName = enterText(false);
 	statement.bind(3, lastName.c_str());
 
@@ -90,7 +94,7 @@ void insertUser(nanodbc::connection conn, USER& user)
 	statement.bind(4, &user.id);
 	statement.bind(5, &user.id);
 
-	cout << "Enter 1 if the user is an admin or 0 is they are not: ";
+	printSpaces(4); cout << "Enter 1 if the user is an admin or 0 is they are not: ";
 	const int isAdmin = enterInt();
 	statement.bind(6, &isAdmin);
 
@@ -115,19 +119,19 @@ void editUserById(nanodbc::connection conn, const int& id, USER& user)
 
 
 
-	cout << "Enter the new username: ";
+	printSpaces(4); cout << "Enter the new username: ";
 	const string username = enterText(true);
 	statement.bind(0, username.c_str());
 
-	cout << "Enter the new password: ";
+	printSpaces(4); cout << "Enter the new password: ";
 	const string password = enterText(false);
 	statement.bind(1, password.c_str());
 
-	cout << "Enter the user's new first name: ";
+	printSpaces(4); cout << "Enter the user's new first name: ";
 	const string firstName = enterText(false);
 	statement.bind(2, firstName.c_str());
 
-	cout << "Enter the user's new last name: ";
+	printSpaces(4); cout << "Enter the user's new last name: ";
 	const string lastName = enterText(false);
 	statement.bind(3, lastName.c_str());
 

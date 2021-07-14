@@ -1,4 +1,4 @@
-#include <iostream>
+﻿#include <iostream>
 #include "Structures.h"
 #include <nanodbc.h>
 #include <vector>
@@ -41,8 +41,10 @@ void getAllLogs(nanodbc::connection conn)
 
 	for (size_t i = 0; i < logs.size(); i++)
 	{
+		printSpaces(2); cout << u8"╔═════════════════════════════════════════════════════════════╗" << endl << endl;
 		logs[i].displayLog();
 		cout << endl;
+		printSpaces(2); cout << u8"╚═════════════════════════════════════════════════════════════╝" << endl << endl << endl;
 	}
 
 	cout << endl << endl;
@@ -89,8 +91,10 @@ void getAllCertainLogs(nanodbc::connection conn, const int& taskId)
 
 	for (size_t i = 0; i < logs.size(); i++)
 	{
+		printSpaces(2); cout << u8"╔═════════════════════════════════════════════════════════════╗" << endl << endl;
 		logs[i].displayLog();
 		cout << endl;
+		printSpaces(2); cout << u8"╚═════════════════════════════════════════════════════════════╝" << endl << endl << endl;
 	}
 
 	cout << endl << endl;
@@ -112,19 +116,19 @@ void insertLog(nanodbc::connection conn)
             (?, ?, ?, ?)
     )"));
 
-	cout << "Enter the user's id: ";
+	printSpaces(4); cout << "Enter the user's id: ";
 	const int userId = enterInt();
 	statement.bind(0, &userId);
 
-	cout << "Enter the time spent working (in hours): ";
+	printSpaces(4); cout << "Enter the time spent working (in hours): ";
 	const double timeSpent = enterDouble();
 	statement.bind(1, &timeSpent);
 
-	cout << "Enter the date (format: 2021-07-13): ";
+	printSpaces(4); cout << "Enter the date (format: 2021-07-13): ";
 	const string date = enterText(true);
 	statement.bind(2, date.c_str());
 
-	cout << "Enter the task's id: ";
+	printSpaces(4); cout << "Enter the task's id: ";
 	const int taskId = enterInt();
 	statement.bind(3, &taskId);
 
@@ -147,19 +151,19 @@ void editLogById(nanodbc::connection conn, const int& id)
 
 
 
-	cout << "Enter the new assigned user's id: ";
+	printSpaces(4); cout << "Enter the new assigned user's id: ";
 	const int userId = enterInt();
 	statement.bind(0, &userId);
 
-	cout << "Enter the time spent (in hours): ";
+	printSpaces(4); cout << "Enter the time spent (in hours): ";
 	const double timeSpent = enterDouble();
 	statement.bind(1, &timeSpent);
 
-	cout << "Enter the date (format: 2021-07-13): ";
+	printSpaces(4); cout << "Enter the date (format: 2021-07-13): ";
 	const string date = enterText(true);
 	statement.bind(2, date.c_str());
 
-	cout << "Enter the task's id: ";
+	printSpaces(4); cout << "Enter the task's id: ";
 	const int taskId = enterInt();
 	statement.bind(3, &taskId);
 
