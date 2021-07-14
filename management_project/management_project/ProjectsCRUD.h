@@ -7,4 +7,4 @@ std::vector<PROJECT> getProjects(nanodbc::connection conn);
 void getAllProjects(nanodbc::connection conn);
 void insertProject(nanodbc::connection conn);
 void editProjectById(nanodbc::connection conn, const int& id);
-bool deleteProjectById(nanodbc::connection conn, const int& id);
+void deleteProjectById(nanodbc::connection conn, const int& id);

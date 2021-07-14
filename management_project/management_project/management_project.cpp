@@ -127,6 +127,7 @@ int main()
 		//insertUser(conn);
 		//getAllUsers(conn);
 		//editUserById(conn, 3);
+		//deleteUserById(conn, 1003);
 
 		//insertTeam(conn);
 		//getAllTeams(conn);
@@ -136,6 +137,7 @@ int main()
 		//getAllProjects(conn);
 		//insertProject(conn);
 		//editProjectById(conn, 2);
+		//deleteProjectById(conn, 2);
 
 		//getAllTasks(conn);
 		//insertTask(conn);
@@ -146,7 +148,7 @@ int main()
 		//insertLog(conn);
 		//editLogById(conn, 1);
 
-		loginMenu(conn, loggedUser);
+		//loginMenu(conn, loggedUser);
 
 
 		return EXIT_SUCCESS;
