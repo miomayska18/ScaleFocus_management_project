@@ -140,6 +140,7 @@ int main()
 		//getAllTasks(conn);
 		//insertTask(conn);
 		//editTaskById(conn, 2);
+		//deleteTaskById(conn, 2);
 
 		//getAllLogs(conn);
 		//insertLog(conn);

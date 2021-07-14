@@ -6,7 +6,6 @@
 #include "InsertFunctions.h"
 using namespace std;
 
-
 vector<TASK> getTasks(nanodbc::connection conn)
 {
 	vector<TASK> tasks;
@@ -14,6 +13,8 @@ vector<TASK> getTasks(nanodbc::connection conn)
 	nanodbc::prepare(statement, NANODBC_TEXT(R"( 
         SELECT *
             FROM [ProjectManagement].[dbo].[Tasks]
+		WHERE
+			IsDeleted<>1
     )"));
 
 	auto result = execute(statement);
@@ -170,18 +171,19 @@ enter:
 	execute(statement);
 }
 
-bool deleteTaskById(nanodbc::connection conn, const int& id)
+void deleteTaskById(nanodbc::connection conn, const int& id)
 {
 	nanodbc::statement statement(conn);
 	nanodbc::prepare(statement, NANODBC_TEXT(R"(
-        DELETE 
-            FROM [ProjectManagement].[dbo].[Task]
-            WHERE Id = ?
+        UPDATE 
+            Tasks
+		SET
+			IsDeleted = 1
+        WHERE 
+			Id = ?
     )"));
 
 	statement.bind(0, &id);
 
 	auto result = execute(statement);
-
-	return result.affected_rows() != 0;
 }
