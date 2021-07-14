@@ -49,6 +49,12 @@ void getAllTasks(nanodbc::connection conn)
 		cout << endl;
 	}
 
+	cout << endl << endl;
+	int choice = 1;
+	do {
+		cout << "Enter 0 to get back to the menu: ";
+		choice = enterInt();
+	} while (choice != 0);
 }
 
 void insertTask(nanodbc::connection conn, USER& user)

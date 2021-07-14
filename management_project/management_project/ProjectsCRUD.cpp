@@ -47,6 +47,11 @@ void getAllProjects(nanodbc::connection conn)
 		cout << endl;
 	}
 
+	int choice = 1;
+	do {
+		cout << "Enter 0 to get back to the menu: ";
+		choice = enterInt();
+	} while (choice != 0);
 }
 
 void insertProject(nanodbc::connection conn, USER& user)
