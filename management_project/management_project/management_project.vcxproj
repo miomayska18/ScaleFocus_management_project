@@ -142,6 +142,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AdminMenus.cpp" />
+    <ClCompile Include="DisplayAdminMenus.cpp" />
     <ClCompile Include="DisplayMethods.cpp" />
     <ClCompile Include="InsertFunctions.cpp" />
     <ClCompile Include="Login.cpp" />
@@ -153,6 +155,8 @@
     <ClCompile Include="UserCRUD.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AdminMenus.h" />
+    <ClInclude Include="DisplayAdminMenus.h" />
     <ClInclude Include="InsertFunctions.h" />
     <ClInclude Include="Login.h" />
     <ClInclude Include="LogsCRUD.h" />

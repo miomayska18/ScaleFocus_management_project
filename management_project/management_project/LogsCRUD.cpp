@@ -45,6 +45,60 @@ void getAllLogs(nanodbc::connection conn)
 		cout << endl;
 	}
 
+	cout << endl << endl;
+	int choice = 1;
+	do {
+		cout << "Enter 0 to get back to the menu: ";
+		choice = enterInt();
+	} while (choice != 0);
+}
+
+vector<LOG> getCertainLogs(nanodbc::connection conn, const int& taskId)
+{
+	vector<LOG> logs;
+	nanodbc::statement statement(conn);
+	nanodbc::prepare(statement, NANODBC_TEXT(R"( 
+        SELECT *
+            FROM [ProjectManagement].[dbo].[Logs]
+		WHERE
+			IsDeleted<>1 AND TaskId = ?
+    )"));
+
+	statement.bind(0, &taskId);
+
+	auto result = execute(statement);
+
+	while (result.next())
+	{
+		LOG log;
+		log.id = result.get<int>("Id");
+		log.userId = result.get<int>("UserId");
+		log.timeSpent = result.get<double>("TimeSpent");
+		log.date = result.get<nanodbc::string>("Date");
+		log.taskId = result.get<int>("TaskId");
+
+		logs.push_back(log);
+	}
+
+	return logs;
+}
+
+void getAllCertainLogs(nanodbc::connection conn, const int& taskId)
+{
+	vector<LOG> logs = getCertainLogs(conn, taskId);
+
+	for (size_t i = 0; i < logs.size(); i++)
+	{
+		logs[i].displayLog();
+		cout << endl;
+	}
+
+	cout << endl << endl;
+	int choice = 1;
+	do {
+		cout << "Enter 0 to get back to the menu: ";
+		choice = enterInt();
+	} while (choice != 0);
 }
 
 void insertLog(nanodbc::connection conn)

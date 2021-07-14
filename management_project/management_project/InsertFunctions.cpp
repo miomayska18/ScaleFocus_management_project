@@ -25,3 +25,11 @@ int enterInt()
 	return num;
 }
 
+void printSpaces(int num)
+{
+	for (int i = 0; i < num; i++)
+	{
+		cout << " ";
+	}
+}
+

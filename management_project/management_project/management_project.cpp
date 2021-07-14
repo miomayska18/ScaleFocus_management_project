@@ -1,4 +1,4 @@
-#include <iostream>
+﻿#include <iostream>
 #include <string>
 #include <nanodbc.h>
 #include <exception>
@@ -11,216 +11,30 @@
 #include "TasksCRUD.h"
 #include "LogsCRUD.h"
 #include "Login.h"
+#include "AdminMenus.h"
 
 using namespace std;
 
-void adminTaskMenu(nanodbc::connection conn, USER& user)
+void welcomeMessage()
 {
-	do {
-		system("cls");
-		cout << "	    	TASK MANAGEMENT MENU		" << endl;
-		cout << "1. Create task" << endl;
-		cout << "2. Edit task" << endl;
-		cout << "3. List all tasks" << endl;
-		cout << "4. Delete task" << endl;
-		cout << "5. Logs" << endl;
-		cout << "0. Exit" << endl;
-	enter:
-		cout << endl;
-		cout << "Enter your choice: ";
-
-		short int choice = enterInt();
-		system("cls");
-		int id;
-		switch (choice)
-		{
-		case 1: insertTask(conn, user);
-			break;
-		case 2:
-			cout << "Enter the id of the task you want to edit: ";
-			id = enterInt();
-			editTaskById(conn, id, user);
-			break;
-		case 3: getAllTasks(conn);
-			break;
-		case 4:
-			cout << "Enter the id of the project you want to delete: ";
-			id = enterInt();
-			deleteTaskById(conn, id);
-			break;
-		case 5:
-			cout << "LOGS" << endl;
-		case 0: return;
-		default: cout << "Please enter a valid option!" << endl;
-			goto enter;
-			break;
-		}
-	} while (true);
-}
-
-void adminProjectMenu(nanodbc::connection conn, USER& user)
-{
-	do {
-		system("cls");
-		cout << "		PROJECT MANAGEMENT MENU		" << endl;
-		cout << "1. Create project" << endl;
-		cout << "2. Edit project" << endl;
-		cout << "3. List all projects" << endl;
-		cout << "4. Delete project" << endl;
-		cout << "5. Tasks & Logs" << endl;
-		cout << "0. Exit" << endl;
-	enter:
-		cout << endl;
-		cout << "Enter your choice: ";
-
-		short int choice = enterInt();
-		system("cls");
-		int id;
-		switch (choice)
-		{
-		case 1: insertProject(conn, user);
-			break;
-		case 2:
-			cout << "Enter the id of the project you want to edit: ";
-			id = enterInt();
-			editProjectById(conn, id, user);
-			break;
-		case 3: getAllProjects(conn);
-			break;
-		case 4:
-			cout << "Enter the id of the project you want to delete: ";
-			id = enterInt();
-			deleteProjectById(conn, id);
-			break;
-		case 5:
-			//cout << "TASKS AND LOGS" << endl;
-			adminTaskMenu(conn, user);
-			break;
-		case 0: return;
-		default: cout << "Please enter a valid option!" << endl;
-			goto enter;
-			break;
-		}
-	} while (true);
-}
-
-void adminTeamMenu(nanodbc::connection conn, USER& user)
-{
-	do {
-		system("cls");
-		cout << "		TEAM MANAGEMENT MENU		" << endl;
-		cout << "1. Create team" << endl;
-		cout << "2. Edit team" << endl;
-		cout << "3. List all teams" << endl;
-		cout << "4. Delete team" << endl;
-		cout << "0. Exit" << endl;
-	enter:
-		cout << endl;
-		cout << "Enter your choice: ";
-
-		short int choice = enterInt();
-		system("cls");
-		int id;
-		switch (choice)
-		{
-		case 1: insertTeam(conn, user);
-			break;
-		case 2:
-			cout << "Enter the id of the team you want to edit: ";
-			id = enterInt();
-			editTeamById(conn, id, user);
-			break;
-		case 3: getAllTeams(conn);
-			break;
-		case 4:
-			cout << "Enter the id of the team you want to delete: ";
-			id = enterInt();
-			deleteTeamById(conn, id);
-			break;
-		case 0: return;
-		default: cout << "Please enter a valid option!" << endl;
-			goto enter;
-			break;
-		}
-	} while (true);
-}
-
-void adminUserMenu(nanodbc::connection conn, USER& user)
-{
-	do {
-		system("cls");
-		cout << "		USER MANAGEMENT MENU		" << endl;
-		cout << "1. Create user" << endl;
-		cout << "2. Edit user" << endl;
-		cout << "3. List all users" << endl;
-		cout << "4. Delete user" << endl;
-		cout << "0. Exit" << endl;
-	enter:
-		cout << endl;
-		cout << "Enter your choice: ";
-
-		short int choice = enterInt();
-		system("cls");
-		int id;
-		switch (choice)
-		{
-		case 1: insertUser(conn, user);
-			break;
-		case 2:
-			cout << "Enter the id of the user you want to edit: ";
-			id = enterInt();
-			editUserById(conn, id, user);
-			break;
-		case 3: getAllUsers(conn);
-			break;
-		case 4:
-			cout << "Enter the id of the user you want to delete: ";
-			id = enterInt();
-			deleteUserById(conn, id);
-			break;
-		case 0: return;
-		default: cout << "Please enter a valid option!" << endl;
-			goto enter;
-			break;
-		}
-	} while (true);
-}
-
-void adminMenu(nanodbc::connection conn, USER& user)
-{
-	do {
-		system("cls");
-		cout << "		ADMIN MENU			" << endl;
-		cout << "1. Users operations" << endl;
-		cout << "2. Teams opeartions" << endl;
-		cout << "3. Projects operations" << endl;
-		cout << "0. Exit" << endl;
-		cout << "Enter your choice: ";
-
-		int choice = enterInt();
-		system("cls");
-
-		switch (choice)
-		{
-		case 1: 
-			adminUserMenu(conn, user);
-			break;
-		case 2: 
-			adminTeamMenu(conn, user);
-			break;
-		case 3: 
-			adminProjectMenu(conn, user);
-			break;
-		case 0: return;
-		}
-	} while (true);
+	cout << endl;
+	printSpaces(12); cout << u8"  ██╗    ██╗███████╗██╗      ██████╗ ██████╗ ███╗   ███╗███████╗ " << endl;
+	printSpaces(12); cout << u8"  ██║    ██║██╔════╝██║     ██╔════╝██╔═══██╗████╗ ████║██╔════╝ " << endl;
+	printSpaces(12); cout << u8"  ██║ █╗ ██║█████╗  ██║     ██║     ██║   ██║██╔████╔██║█████╗   " << endl;
+	printSpaces(12); cout << u8"  ██║███╗██║██╔══╝  ██║     ██║     ██║   ██║██║╚██╔╝██║██╔══╝   " << endl;
+	printSpaces(12); cout << u8"  ╚███╔███╔╝███████╗███████╗╚██████╗╚██████╔╝██║ ╚═╝ ██║███████╗ " << endl;
+	printSpaces(12); cout << u8"   ╚══╝╚══╝ ╚══════╝╚══════╝ ╚═════╝ ╚═════╝ ╚═╝     ╚═╝╚══════╝ " << endl;
+	cout << endl;
 }
 
 void loginMenu(nanodbc::connection conn, USER& user)
 {
-	cout << "		LOG IN			" << endl;
-	cout << "Username: "; const string username = enterText(false);
-	cout << "Password: "; const string password = enterText(false);
+	welcomeMessage();
+	printSpaces(35); cout << u8"█   █▀█ █▀▀   █ █▄ █" << endl;
+	printSpaces(35); cout << u8"█▄▄ █▄█ █▄█   █ █ ▀█" << endl;
+	cout << endl << endl;
+	printSpaces(5); cout << "Username: "; const string username = enterText(false);
+	printSpaces(5); cout << "Password: "; const string password = enterText(false);
 
 	user = getLoggedUserInfo(conn, username, password);
 
@@ -233,7 +47,7 @@ void loginMenu(nanodbc::connection conn, USER& user)
 		}
 		else
 		{
-			cout << "User menu" << endl;
+			cout << "User menu currently not available, sorry" << endl;
 		}
 	}
 	else {
@@ -241,9 +55,10 @@ void loginMenu(nanodbc::connection conn, USER& user)
 	}
 }
 
-
 int main()
 {
+	system("chcp 65001");
+	system("cls");
 	try
 	{
 		nanodbc::string connstr = NANODBC_TEXT("DRIVER={ODBC Driver 17 for SQL Server};SERVER=(localdb)\\MSSQLLocalDB;DATABASE=ProjectManagement;Trusted_Connection=yes;"); // an ODBC connection string to your database
