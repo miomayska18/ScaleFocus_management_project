@@ -147,6 +147,7 @@ int main()
 		//getAllLogs(conn);
 		//insertLog(conn);
 		//editLogById(conn, 1);
+		//deleteLogById(conn, 1);
 
 		//loginMenu(conn, loggedUser);
 

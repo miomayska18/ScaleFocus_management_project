@@ -14,6 +14,8 @@ vector<LOG> getLogs(nanodbc::connection conn)
 	nanodbc::prepare(statement, NANODBC_TEXT(R"( 
         SELECT *
             FROM [ProjectManagement].[dbo].[Logs]
+		WHERE
+			IsDelted<>1
     )"));
 
 	auto result = execute(statement);
@@ -112,18 +114,20 @@ void editLogById(nanodbc::connection conn, const int& id)
 	execute(statement);
 }
 
-bool deleteLogById(nanodbc::connection conn, const int& id)
+void deleteLogById(nanodbc::connection conn, const int& id)
 {
 	nanodbc::statement statement(conn);
 	nanodbc::prepare(statement, NANODBC_TEXT(R"(
-        DELETE 
-            FROM [ProjectManagement].[dbo].[Logs]
-            WHERE Id = ?
+        UPDATE 
+            Logs
+		SET
+			IsDeleted = 1
+        WHERE 
+			Id = ?
     )"));
 
 	statement.bind(0, &id);
 
 	auto result = execute(statement);
 
-	return result.affected_rows() != 0;
 }
