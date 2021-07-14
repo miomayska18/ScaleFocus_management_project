@@ -33,12 +33,12 @@ void adminTeamMenu(nanodbc::connection conn, USER& user)
 		int id;
 		switch (choice)
 		{
-		case 1: insertTeam(conn, );
+		case 1: insertTeam(conn, user);
 			break;
 		case 2:
 			cout << "Enter the id of the team you want to edit: ";
 			id = enterInt();
-			editTeamById(conn, id, );
+			editTeamById(conn, id, user);
 			break;
 		case 3: getAllTeams(conn);
 			break;
@@ -74,12 +74,12 @@ void adminUserMenu(nanodbc::connection conn, USER& user)
 		int id;
 		switch (choice)
 		{
-		case 1: insertUser(conn);
+		case 1: insertUser(conn, user);
 			break;
 		case 2:
 			cout << "Enter the id of the user you want to edit: ";
 			id = enterInt();
-			editUserById(conn, id);
+			editUserById(conn, id, user);
 			break;
 		case 3: getAllUsers(conn);
 			break;

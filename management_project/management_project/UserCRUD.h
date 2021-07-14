@@ -6,6 +6,6 @@
 
 std::vector<USER> getUsers(nanodbc::connection conn);
 void getAllUsers(nanodbc::connection conn);
-void insertUser(nanodbc::connection conn);
-void editUserById(nanodbc::connection conn, const int& id);
+void insertUser(nanodbc::connection conn, USER& user);
+void editUserById(nanodbc::connection conn, const int& id, USER& user);
 void deleteUserById(nanodbc::connection conn, const int& id);

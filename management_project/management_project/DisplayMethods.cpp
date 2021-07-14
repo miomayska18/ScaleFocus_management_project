@@ -32,7 +32,7 @@ void TEAM::displayTeam()
 	cout << "Date of creation: " << this->dateOfCreation << endl;
 	cout << "Id of creator: " << this->idOfCreator << endl;
 	cout << "Date of last modification: " << this->dateLastChange << endl;
-	cout << "Id of last modificator: " << this->id<< endl;
+	cout << "Id of last modificator: " << this->idLastChange<< endl;
 }
 
 void PROJECT::displayProject()

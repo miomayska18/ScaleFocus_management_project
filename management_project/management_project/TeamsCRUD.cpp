@@ -68,7 +68,7 @@ void insertTeam(nanodbc::connection conn, USER& user)
     )"));
 
 	cout << "Enter the team's name: ";
-	const string teamName = enterText(false);
+	const string teamName = enterText(true);
 	statement.bind(0, teamName.c_str());
 
 	cout << "Enter the assigned project id: ";
@@ -99,7 +99,7 @@ void editTeamById(nanodbc::connection conn, const int& id, USER& user)
 
 
 	cout << "Enter the team's new name: ";
-	const string name = enterText(false);
+	const string name = enterText(true);
 	statement.bind(0, name.c_str());
 
 	//cout << "Enter your id: ";

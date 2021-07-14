@@ -58,7 +58,7 @@ void getAllUsers(nanodbc::connection conn)
 	} while (choice != 0);
 }
 
-void insertUser(nanodbc::connection conn)
+void insertUser(nanodbc::connection conn, USER& user)
 {
 	nanodbc::statement statement(conn);
 	nanodbc::prepare(statement, NANODBC_TEXT(R"(
@@ -85,10 +85,10 @@ void insertUser(nanodbc::connection conn)
 	const string lastName = enterText(false);
 	statement.bind(3, lastName.c_str());
 
-	cout << "Enter your id: ";
-	const int creatorId = enterInt();
-	statement.bind(4, &creatorId);
-	statement.bind(5, &creatorId);
+	//cout << "Enter your id: ";
+	//const int creatorId = enterInt();
+	statement.bind(4, &user.id);
+	statement.bind(5, &user.id);
 
 	cout << "Enter 1 if the user is an admin or 0 is they are not: ";
 	const int isAdmin = enterInt();
@@ -97,7 +97,7 @@ void insertUser(nanodbc::connection conn)
 	execute(statement);
 }
 
-void editUserById(nanodbc::connection conn, const int& id)
+void editUserById(nanodbc::connection conn, const int& id, USER& user)
 {
 	nanodbc::statement statement(conn);
 	nanodbc::prepare(statement, NANODBC_TEXT(R"(
@@ -131,9 +131,9 @@ void editUserById(nanodbc::connection conn, const int& id)
 	const string lastName = enterText(false);
 	statement.bind(3, lastName.c_str());
 
-	cout << "Enter your id: ";
-	const int creatorId = enterInt();
-	statement.bind(4, &creatorId);
+	//cout << "Enter your id: ";
+	//const int creatorId = enterInt();
+	statement.bind(4, &user.id);
 
 	statement.bind(5, &id);
 
