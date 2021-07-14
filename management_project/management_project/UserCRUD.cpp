@@ -37,7 +37,7 @@ vector<USER> getUsers(nanodbc::connection conn)
 	return users;
 }
 
-void getAllUsers(nanodbc::connection conn)
+void getAllUsers(nanodbc::connection conn, USER& user)
 {
 	vector<USER> users = getUsers(conn);
 
@@ -47,6 +47,13 @@ void getAllUsers(nanodbc::connection conn)
 		cout << endl;
 	}
 
+	cout << endl << endl;
+	
+	int choice = 1;
+	do {
+		cout << "Enter 0 to get back to the user menu: ";
+		choice = enterInt();
+	} while (choice != 0);
 }
 
 void insertUser(nanodbc::connection conn)

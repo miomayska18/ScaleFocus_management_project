@@ -14,26 +14,70 @@
 
 using namespace std;
 
+void adminUserMenu(nanodbc::connection conn, USER& user)
+{
+	do {
+		system("cls");
+		cout << "		USER MANAGEMENT MENU		" << endl;
+		cout << "1. Create user" << endl;
+		cout << "2. Edit user" << endl;
+		cout << "3. List all users" << endl;
+		cout << "4. Delete user" << endl;
+		cout << "0. Exit" << endl;
+	enter:
+		cout << endl;
+		cout << "Enter your choice: ";
+
+		short int choice = enterInt();
+		system("cls");
+		int id;
+		switch (choice)
+		{
+		case 1: insertUser(conn);
+			break;
+		case 2:
+			cout << "Enter the id of the user you want to edit: ";
+			id = enterInt();
+			editUserById(conn, id);
+			break;
+		case 3: getAllUsers(conn, user);
+			break;
+		case 4: //delete
+			break;
+		case 0: return;
+		default: cout << "Please enter a valid option!" << endl;
+			goto enter;
+			break;
+		}
+	} while (true);
+}
+
 void adminMenu(nanodbc::connection conn, USER& user)
 {
-	cout << "		ADMIN MENU			" << endl;
-	cout << "1. Users operations" << endl;
-	cout << "2. Teams opeartions" << endl;
-	cout << "3. Projects operations" << endl;
-	cout << "Enter your choice: ";
+	do {
+		system("cls");
+		cout << "		ADMIN MENU			" << endl;
+		cout << "1. Users operations" << endl;
+		cout << "2. Teams opeartions" << endl;
+		cout << "3. Projects operations" << endl;
+		cout << "0. Exit" << endl;
+		cout << "Enter your choice: ";
 
-	int choice = enterInt();
+		int choice = enterInt();
+		system("cls");
 
-	switch (choice)
-	{
-	case 1: cout << "User menu with CRUD" << endl;
-		break;
-	case 2: cout << "Teams menu with crud options" << endl;
-		break;
-	case 3: cout << "Projects menu with CRUD" << endl;
-		break;
-	}
-
+		switch (choice)
+		{
+		case 1: //cout << "User menu with CRUD" << endl;
+			adminUserMenu(conn, user);
+			break;
+		case 2: cout << "Teams menu with crud options" << endl;
+			break;
+		case 3: cout << "Projects menu with CRUD" << endl;
+			break;
+		case 0: return;
+		}
+	} while (true);
 }
 
 void loginMenu(nanodbc::connection conn, USER& user)
