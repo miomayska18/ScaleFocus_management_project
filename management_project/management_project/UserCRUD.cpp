@@ -139,7 +139,7 @@ void editUserById(nanodbc::connection conn, const int& id)
 	execute(statement);
 }
 
-bool deleteUserById(nanodbc::connection conn, const int& id)
+void deleteUserById(nanodbc::connection conn, const int& id)
 {
 	nanodbc::statement statement(conn);
 	nanodbc::prepare(statement, NANODBC_TEXT(R"(
@@ -151,6 +151,4 @@ bool deleteUserById(nanodbc::connection conn, const int& id)
 	statement.bind(0, &id);
 
 	auto result = execute(statement);
-
-	return result.affected_rows() != 0;
 }

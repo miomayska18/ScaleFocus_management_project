@@ -42,7 +42,10 @@ void adminUserMenu(nanodbc::connection conn, USER& user)
 			break;
 		case 3: getAllUsers(conn, user);
 			break;
-		case 4: //delete
+		case 4:
+			cout << "Enter the id of the user you want to delete: ";
+			id = enterInt();
+			deleteUserById(conn, id);
 			break;
 		case 0: return;
 		default: cout << "Please enter a valid option!" << endl;
