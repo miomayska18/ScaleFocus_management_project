@@ -158,6 +158,11 @@ void adminTeamMenu(nanodbc::connection conn, USER& user)
 			id = enterInt();
 			deleteTeamById(conn, id);
 			break;
+		case 5:
+			cout << "Enter the id of the team you want to enter users into: ";
+			id = enterInt();
+			insertUserIntoTeam(conn, id);
+			break;
 		case 0: return;
 		default: cout << "Please enter a valid option!" << endl;
 			goto enter;

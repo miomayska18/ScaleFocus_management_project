@@ -61,11 +61,12 @@ void displayAdminTeamMenu()
 	cout << u8" █  ██▄ █▀█ █ ▀ █   █ ▀ █ █▀█ █ ▀█ █▀█ █▄█ ██▄ █ ▀ █ ██▄ █ ▀█  █    █ ▀ █ ██▄ █ ▀█ █▄█" << endl;
 	cout << endl << endl << endl;
 	printSpaces(26); cout << u8"╔══════════════════════════╗" << endl;
-	printSpaces(32); cout << "1. Create team" << endl;
-	printSpaces(32); cout << "2. Edit team" << endl;
-	printSpaces(32); cout << "3. List all teams" << endl;
-	printSpaces(32); cout << "4. Delete team" << endl;
-	printSpaces(32); cout << "0. Exit" << endl;
+	printSpaces(29); cout << "1. Create team" << endl;
+	printSpaces(29); cout << "2. Edit team" << endl;
+	printSpaces(29); cout << "3. List all teams" << endl;
+	printSpaces(29); cout << "4. Delete team" << endl;
+	printSpaces(29); cout << "5. Add a user to a team" << endl;
+	printSpaces(29); cout << "0. Exit" << endl;
 	printSpaces(26); cout << u8"╚══════════════════════════╝" << endl;
 }
 

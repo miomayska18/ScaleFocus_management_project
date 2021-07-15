@@ -99,7 +99,6 @@ int main()
 
 		loginMenu(conn, loggedUser);
 
-
 		return EXIT_SUCCESS;
 	}
 	catch (std::exception& e)
