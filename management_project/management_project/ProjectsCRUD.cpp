@@ -134,3 +134,34 @@ void deleteProjectById(nanodbc::connection conn, const int& id)
 
 	auto result = execute(statement);
 }
+
+void assignTeamToProject(nanodbc::connection conn, const int& projectId)
+{
+	system("cls");
+	nanodbc::statement statement(conn);
+	nanodbc::prepare(statement, NANODBC_TEXT(R"(
+        INSERT INTO
+            [ProjectManagement].[dbo].[ProjectsTeams]
+            (ProjectId, TeamId)
+            VALUES
+            (?, ?)
+    )"));
+
+enter:
+	cout << "Enter the id of the team you want to assign this project to: ";
+	const int& teamId = enterInt();
+
+	statement.bind(0, &projectId);
+	statement.bind(1, &teamId);
+
+	execute(statement);
+
+	cout << endl << endl;
+
+	int choice = 1;
+	do {
+		cout << "Enter 0 to get back to the menu: ";
+		choice = enterInt();
+	} while (choice != 0);
+
+}

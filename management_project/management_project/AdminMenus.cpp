@@ -97,7 +97,7 @@ void adminTaskMenu(nanodbc::connection conn, USER& user)
 void adminProjectMenu(nanodbc::connection conn, USER& user)
 {
 	do {
-		displayProjectManagementMenu();
+		displayAdminProjectManagementMenu();
 	enter:
 		printSpaces(40); cout << "Enter your choice: ";
 
@@ -121,6 +121,11 @@ void adminProjectMenu(nanodbc::connection conn, USER& user)
 			deleteProjectById(conn, id);
 			break;
 		case 5:
+			cout << "Enter the id of the project you want to assign a team to: " << endl;
+			id = enterInt();
+			assignTeamToProject(conn, id);
+			break;
+		case 6:
 			//cout << "TASKS AND LOGS" << endl;
 			adminTaskMenu(conn, user);
 			break;

@@ -5,7 +5,7 @@ void displayAdminLogMenu();
 
 void displayAdminTaskMenu();
 
-void displayProjectManagementMenu();
+void displayAdminProjectManagementMenu();
 
 void displayAdminTeamMenu();
 

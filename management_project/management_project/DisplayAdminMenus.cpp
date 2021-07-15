@@ -36,21 +36,22 @@ void displayAdminTaskMenu()
 	printSpaces(26); cout << u8"╚══════════════════════════╝" << endl;
 }
 
-void displayProjectManagementMenu()
+void displayAdminProjectManagementMenu()
 {
 	system("cls");
 	cout << endl;
 	cout << u8"█▀█ █▀█ █▀█   █ █▀▀ █▀▀ ▀█▀   █▀▄▀█ ▄▀█ █▄ █ ▄▀█ █▀▀ █▀▀ █▀▄▀█ █▀▀ █▄ █ ▀█▀   █▀▄▀█ █▀▀ █▄ █ █ █" << endl;
 	cout << u8"█▀▀ █▀▄ █▄█ █▄█ ██▄ █▄▄  █    █ ▀ █ █▀█ █ ▀█ █▀█ █▄█ ██▄ █ ▀ █ ██▄ █ ▀█  █    █ ▀ █ ██▄ █ ▀█ █▄█" << endl;
 	cout << endl << endl << endl;
-	printSpaces(40); cout << u8"╔══════════════════════════╗" << endl;
-	printSpaces(44); cout << "1. Create project" << endl;
-	printSpaces(44); cout << "2. Edit project" << endl;
-	printSpaces(44); cout << "3. List all projects" << endl;
-	printSpaces(44); cout << "4. Delete project" << endl;
-	printSpaces(44); cout << "5. Tasks & logs" << endl;
-	printSpaces(44); cout << "0. Exit" << endl;
-	printSpaces(40); cout << u8"╚══════════════════════════╝" << endl;
+	printSpaces(38); cout << u8"╔═════════════════════════════╗" << endl;
+	printSpaces(40); cout << "1. Create project" << endl;
+	printSpaces(40); cout << "2. Edit project" << endl;
+	printSpaces(40); cout << "3. List all projects" << endl;
+	printSpaces(40); cout << "4. Delete project" << endl;
+	printSpaces(40); cout << "5. Assign a team to a project" << endl;
+	printSpaces(40); cout << "6. Tasks & logs" << endl;
+	printSpaces(40); cout << "0. Exit" << endl;
+	printSpaces(38); cout << u8"╚═════════════════════════════╝" << endl;
 }
 
 void displayAdminTeamMenu()
