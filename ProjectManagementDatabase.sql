@@ -1,6 +1,6 @@
 USE [ProjectManagement]
 GO
-/****** Object:  Database [ProjectManagement]    Script Date: 7/14/2021 6:32:21 PM ******/
+/****** Object:  Database [ProjectManagement]    Script Date: 7/15/2021 10:31:50 AM ******/
 CREATE DATABASE [ProjectManagement]
  CONTAINMENT = NONE
  ON  PRIMARY 
@@ -73,7 +73,7 @@ ALTER DATABASE [ProjectManagement] SET DELAYED_DURABILITY = DISABLED
 GO
 USE [ProjectManagement]
 GO
-/****** Object:  Table [dbo].[Logs]    Script Date: 7/14/2021 6:32:21 PM ******/
+/****** Object:  Table [dbo].[Logs]    Script Date: 7/15/2021 10:31:50 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -91,7 +91,7 @@ CREATE TABLE [dbo].[Logs](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Projects]    Script Date: 7/14/2021 6:32:21 PM ******/
+/****** Object:  Table [dbo].[Projects]    Script Date: 7/15/2021 10:31:50 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -112,22 +112,22 @@ CREATE TABLE [dbo].[Projects](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[ProjectsTeams]    Script Date: 7/14/2021 6:32:21 PM ******/
+/****** Object:  Table [dbo].[ProjectsTeams]    Script Date: 7/15/2021 10:31:50 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[ProjectsTeams](
 	[ProjectId] [int] NOT NULL,
-	[TeamsId] [int] NOT NULL,
+	[TeamId] [int] NOT NULL,
  CONSTRAINT [PK_ProjectsTeams] PRIMARY KEY CLUSTERED 
 (
 	[ProjectId] ASC,
-	[TeamsId] ASC
+	[TeamId] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Tasks]    Script Date: 7/14/2021 6:32:21 PM ******/
+/****** Object:  Table [dbo].[Tasks]    Script Date: 7/15/2021 10:31:50 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -150,7 +150,7 @@ CREATE TABLE [dbo].[Tasks](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Teams]    Script Date: 7/14/2021 6:32:21 PM ******/
+/****** Object:  Table [dbo].[Teams]    Script Date: 7/15/2021 10:31:50 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -170,7 +170,7 @@ CREATE TABLE [dbo].[Teams](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Users]    Script Date: 7/14/2021 6:32:21 PM ******/
+/****** Object:  Table [dbo].[Users]    Script Date: 7/15/2021 10:31:50 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -193,7 +193,7 @@ CREATE TABLE [dbo].[Users](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[UsersTeams]    Script Date: 7/14/2021 6:32:21 PM ******/
+/****** Object:  Table [dbo].[UsersTeams]    Script Date: 7/15/2021 10:31:50 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -227,6 +227,8 @@ GO
 INSERT [dbo].[Projects] ([Id], [Name], [Description], [OwnerId], [DateCreation], [IdCreator], [DateLastChange], [IdLastChange], [IsDeleted]) VALUES (3, N'AQUA_lakes', N'A project about managing lakes', 1, CAST(N'2021-07-14T13:04:38.540' AS DateTime), 1, CAST(N'2021-07-14T13:05:30.023' AS DateTime), 1, 0)
 GO
 SET IDENTITY_INSERT [dbo].[Projects] OFF
+GO
+INSERT [dbo].[ProjectsTeams] ([ProjectId], [TeamId]) VALUES (3, 2)
 GO
 SET IDENTITY_INSERT [dbo].[Tasks] ON 
 GO
@@ -263,6 +265,12 @@ GO
 INSERT [dbo].[Users] ([Id], [UserName], [Password], [FirstName], [LastName], [DateOfCreation], [IdOfCreator], [DateLastChange], [IdLastChange], [IsAdmin], [IsDeleted]) VALUES (2002, N'testUser', N'testUserPass', N'test', N'user', CAST(N'2021-07-14T12:28:08.650' AS DateTime), 1, CAST(N'2021-07-14T12:28:08.650' AS DateTime), 1, 0, 0)
 GO
 SET IDENTITY_INSERT [dbo].[Users] OFF
+GO
+INSERT [dbo].[UsersTeams] ([UserId], [TeamId]) VALUES (2, 2)
+GO
+INSERT [dbo].[UsersTeams] ([UserId], [TeamId]) VALUES (3, 2)
+GO
+INSERT [dbo].[UsersTeams] ([UserId], [TeamId]) VALUES (4, 1)
 GO
 ALTER TABLE [dbo].[Logs] ADD  CONSTRAINT [DF_Logs_Date]  DEFAULT (getdate()) FOR [Date]
 GO
@@ -322,7 +330,7 @@ REFERENCES [dbo].[Projects] ([Id])
 GO
 ALTER TABLE [dbo].[ProjectsTeams] CHECK CONSTRAINT [FK_ProjectsTeams_Project]
 GO
-ALTER TABLE [dbo].[ProjectsTeams]  WITH CHECK ADD  CONSTRAINT [FK_ProjectsTeams_Team] FOREIGN KEY([TeamsId])
+ALTER TABLE [dbo].[ProjectsTeams]  WITH CHECK ADD  CONSTRAINT [FK_ProjectsTeams_Team] FOREIGN KEY([TeamId])
 REFERENCES [dbo].[Teams] ([Id])
 GO
 ALTER TABLE [dbo].[ProjectsTeams] CHECK CONSTRAINT [FK_ProjectsTeams_Team]
